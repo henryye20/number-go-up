@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://br8rghinapqni"]
+
+[ext_resource type="Script" uid="uid://bsu87pknei6to" path="res://scripts/UI/Counter.cs" id="1_i7dbw"]
+[ext_resource type="Script" uid="uid://b3xdja7g8c113" path="res://scripts/UI/MainButton.cs" id="2_ex8ew"]
+[ext_resource type="Texture2D" uid="uid://be2e40vi72lr4" path="res://art/button/button_1.png" id="2_lmo2c"]
+[ext_resource type="Texture2D" uid="uid://cg87epxehtstv" path="res://art/button/button_2.png" id="4_cetho"]
+[ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button_3.png" id="5_1fmla"]
+[ext_resource type="Texture2D" uid="uid://cmrga8qtd1vmx" path="res://art/button/button_4.png" id="6_hge6c"]
+[ext_resource type="Texture2D" uid="uid://c6xnutvvwmij3" path="res://art/button/button_5.png" id="7_q2y38"]
+[ext_resource type="Texture2D" uid="uid://yn7px7ok5cvo" path="res://art/sbut/sbut1.png" id="8_cfe4l"]
+[ext_resource type="Script" uid="uid://b63wrrylgwdtr" path="res://scripts/UI/ShopUnlock.cs" id="8_elthy"]
+[ext_resource type="Script" uid="uid://du38oupdq26da" path="res://scripts/UI/UpgradeMenu.cs" id="8_ltarh"]
+[ext_resource type="Texture2D" uid="uid://cfeedle4bvd31" path="res://art/sbut/sbut2.png" id="9_elthy"]
+[ext_resource type="Texture2D" uid="uid://bp0nuugfw47aq" path="res://art/sbut/sbut3.png" id="10_ltarh"]
+[ext_resource type="Texture2D" uid="uid://bul6pkj5drxao" path="res://art/sbut/sbut4.png" id="11_a64mt"]
+[ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i7dbw"]
+font_size = 100
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_ex8ew"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_lmo2c")]
+}
+
+[sub_resource type="Animation" id="Animation_cetho"]
+resource_name = "button_imgs"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_lmo2c"), ExtResource("4_cetho"), ExtResource("5_1fmla"), ExtResource("6_hge6c"), ExtResource("7_q2y38")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1fmla"]
+_data = {
+&"RESET": SubResource("Animation_ex8ew"),
+&"button_imgs": SubResource("Animation_cetho")
+}
+
+[sub_resource type="SystemFont" id="SystemFont_i7dbw"]
+
+[sub_resource type="Theme" id="Theme_lmo2c"]
+default_font = SubResource("SystemFont_i7dbw")
+default_font_size = 45
+
+[sub_resource type="Animation" id="Animation_iu01i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_cfe4l")]
+}
+
+[sub_resource type="Animation" id="Animation_l076w"]
+resource_name = "shop_imgs"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_cfe4l"), ExtResource("9_elthy"), ExtResource("10_ltarh"), ExtResource("11_a64mt"), ExtResource("12_074bi")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5qq7"]
+_data = {
+&"RESET": SubResource("Animation_iu01i"),
+&"shop_imgs": SubResource("Animation_l076w")
+}
+
+[node name="Control" type="Control" unique_id=115132332]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_i7dbw")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1018359846]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Number" type="Label" parent="." unique_id=384437704]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.390625
+anchor_top = 0.2375
+anchor_right = 0.609375
+anchor_bottom = 0.36435184
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_i7dbw")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="MainButton" type="Button" parent="." unique_id=1962091946]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.41770834
+anchor_top = 0.6481481
+anchor_right = 0.5842014
+anchor_bottom = 0.7851852
+offset_right = 3.333374
+offset_bottom = 4.999939
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+flat = true
+script = ExtResource("2_ex8ew")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="ButtonImg" type="TextureRect" parent="MainButton" unique_id=1230415507]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -979.0
+offset_top = -825.5
+offset_right = 941.0
+offset_bottom = 254.49997
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_lmo2c")
+metadata/_edit_lock_ = true
+
+[node name="ButtonAnim" type="AnimationPlayer" parent="MainButton/ButtonImg" unique_id=1255175062]
+libraries/ = SubResource("AnimationLibrary_1fmla")
+speed_scale = 0.5
+
+[node name="UpgradeMenu" type="VBoxContainer" parent="." unique_id=734201524]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.82807505
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("8_ltarh")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="BuyTitle" type="RichTextLabel" parent="UpgradeMenu" unique_id=1908947700]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = SubResource("Theme_lmo2c")
+text = "UPGRADES"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buy1" type="Button" parent="UpgradeMenu" unique_id=1924275321]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+text = "+1"
+
+[node name="Buy2" type="Button" parent="UpgradeMenu" unique_id=1392715926]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+text = "+1 per 5s"
+
+[node name="Timer" type="Timer" parent="UpgradeMenu/Buy2" unique_id=1907106066]
+wait_time = 5.0
+
+[node name="ShopUnlock" type="Button" parent="." unique_id=1004683484]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8640625
+anchor_top = 0.06759259
+anchor_right = 0.94739586
+anchor_bottom = 0.21481481
+pivot_offset_ratio = Vector2(0.5, 0.5)
+flat = true
+script = ExtResource("8_elthy")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="ShopUnlockImg" type="TextureRect" parent="ShopUnlock" unique_id=942167007]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1671.0
+offset_top = -104.5
+offset_right = 89.0
+offset_bottom = 816.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = ExtResource("8_cfe4l")
+metadata/_edit_lock_ = true
+
+[node name="ShockUnlockAnim" type="AnimationPlayer" parent="ShopUnlock/ShopUnlockImg" unique_id=410104222]
+libraries/ = SubResource("AnimationLibrary_l5qq7")
+speed_scale = 0.5

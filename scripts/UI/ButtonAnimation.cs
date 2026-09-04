@@ -108,7 +108,8 @@ public partial class ButtonAnimation : Button
 		PressAnim(button_r,spin);
 
 	}
-	private void OnButtonUpgrade(){
+	private void OnButtonUpgrade(int addamt){
 		//TODO: Change Img and other animation stuff 
+		return;
 	}
 }

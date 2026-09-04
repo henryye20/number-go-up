@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bp0nuugfw47aq" path="res://art/sbut/sbut3.png" id="10_ltarh"]
 [ext_resource type="Texture2D" uid="uid://bul6pkj5drxao" path="res://art/sbut/sbut4.png" id="11_a64mt"]
 [ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
+[ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_l076w"]
 [ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
 [ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
 
@@ -217,6 +218,10 @@ text = "UPGRADES"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ShopButton" parent="UpgradeMenu" unique_id=1331519468 instance=ExtResource("12_l076w")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
 
 [node name="Buy1" type="Button" parent="UpgradeMenu" unique_id=1924275321]
 custom_minimum_size = Vector2(0, 100)

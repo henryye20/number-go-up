@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://bsiict2uqfmla"]
 
+[ext_resource type="Script" uid="uid://b8cbpwluxbvec" path="res://scripts/UI/ShopButton.cs" id="1_rjaqt"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_mkegr"]
 
 [node name="ShopButton" type="Button" unique_id=1331519468]
 offset_right = 102.0
 offset_bottom = 53.0
 icon = SubResource("AtlasTexture_mkegr")
+script = ExtResource("1_rjaqt")

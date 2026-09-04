@@ -13,6 +13,8 @@ public partial class EventBus : Node
 	{
 		Instance = this;
 	}
-
+	public void TriggerButtonUpgrade(int stage){
+		EmitSignal(SignalName.ButtonUpgrade,stage);
+	}
 	
 }

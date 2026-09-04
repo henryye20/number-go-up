@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://br8rghinapqni"]
 
-[ext_resource type="Script" uid="uid://bsu87pknei6to" path="res://scripts/UI/Counter.cs" id="1_i7dbw"]
-[ext_resource type="Script" uid="uid://b3xdja7g8c113" path="res://scripts/UI/MainButton.cs" id="2_ex8ew"]
+[ext_resource type="Script" uid="uid://bsu87pknei6to" path="res://scripts/UI/ButtonManager.cs" id="1_i7dbw"]
+[ext_resource type="Script" uid="uid://d2nuc2uglch27" path="res://scripts/UI/NumberText.cs" id="2_a64mt"]
+[ext_resource type="Script" uid="uid://b3xdja7g8c113" path="res://scripts/UI/ButtonAnimation.cs" id="2_ex8ew"]
 [ext_resource type="Texture2D" uid="uid://be2e40vi72lr4" path="res://art/button/button_1.png" id="2_lmo2c"]
 [ext_resource type="Texture2D" uid="uid://cg87epxehtstv" path="res://art/button/button_2.png" id="4_cetho"]
 [ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button_3.png" id="5_1fmla"]
@@ -14,6 +15,13 @@
 [ext_resource type="Texture2D" uid="uid://bp0nuugfw47aq" path="res://art/sbut/sbut3.png" id="10_ltarh"]
 [ext_resource type="Texture2D" uid="uid://bul6pkj5drxao" path="res://art/sbut/sbut4.png" id="11_a64mt"]
 [ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
+
+[sub_resource type="Gradient" id="Gradient_ltarh"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a64mt"]
+gradient = SubResource("Gradient_ltarh")
 
 [sub_resource type="LabelSettings" id="LabelSettings_i7dbw"]
 font_size = 100
@@ -58,6 +66,7 @@ _data = {
 }
 
 [sub_resource type="SystemFont" id="SystemFont_i7dbw"]
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_lmo2c"]
 default_font = SubResource("SystemFont_i7dbw")
@@ -117,6 +126,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("GradientTexture1D_a64mt")
 metadata/_edit_lock_ = true
 
 [node name="Number" type="Label" parent="." unique_id=384437704]
@@ -131,6 +141,7 @@ grow_vertical = 2
 text = "0"
 label_settings = SubResource("LabelSettings_i7dbw")
 horizontal_alignment = 1
+script = ExtResource("2_a64mt")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 

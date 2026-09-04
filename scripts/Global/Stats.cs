@@ -5,6 +5,7 @@ public partial class Stats : Node
 {
 	public static Stats Instance { get; private set; }
 	public int number { get; set; } = 0;
+	public int UIstate = 0;
 
 	[Signal]
     public delegate void NumberChangedEventHandler(int newnum);
@@ -14,7 +15,7 @@ public partial class Stats : Node
 	{
 		Instance = this;
 	}
-
+	
 	public void UpdateNumber(int amt){
 		number += amt;
 		EmitSignal(SignalName.NumberChanged,number);

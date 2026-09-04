@@ -1,8 +1,10 @@
 using Godot;
 using System;
 
-public partial class MainButton : Button
+public partial class ButtonAnimation : Button
 {
+	
+	
 	// Called when the node enters the scene tree for the first time.
 	private AnimationPlayer _buttonanim;
 	Tween tween;
@@ -97,7 +99,7 @@ public partial class MainButton : Button
 		float button_r = (float)GD.RandRange(3.0, 8.0);
 		
 		
-		if(GD.RandRange(1,1000)==1){
+		if(GD.RandRange(1,500)==1){
 			spin= true;
 		}
 		

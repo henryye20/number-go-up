@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b4rlyhro6mqol"]
+
+[ext_resource type="Script" uid="uid://dgxwijpcyrgnu" path="res://scripts/Upgrades/Tree.cs" id="1_1j2jh"]
+[ext_resource type="Texture2D" uid="uid://bi01621nwu1q6" path="res://art/Tree/tree0.png" id="1_gjq3m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j2jh"]
+atlas = ExtResource("1_gjq3m")
+region = Rect2(1285.0254, 436.8717, 342.97424, 475.48712)
+
+[node name="Tree" type="TextureRect" unique_id=1461711897]
+offset_right = 342.0
+offset_bottom = 475.0
+texture = SubResource("AtlasTexture_1j2jh")
+stretch_mode = 2
+script = ExtResource("1_1j2jh")

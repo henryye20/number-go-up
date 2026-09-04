@@ -11,7 +11,7 @@ public partial class NumberText : Label
 	}
 
 	private void OnNumberChanged(int newnum){
-		this.Text = Stats.Instance.newnum.ToString();
+		this.Text = newnum.ToString();
 	}
 
 

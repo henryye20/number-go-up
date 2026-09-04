@@ -1,14 +1,8 @@
 [gd_scene format=3 uid="uid://bsiict2uqfmla"]
 
-[node name="ShopButton" type="Control" unique_id=1056010434]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkegr"]
 
-[node name="Button" type="Button" parent="." unique_id=1184542666]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="ShopButton" type="Button" unique_id=1331519468]
+offset_right = 102.0
+offset_bottom = 53.0
+icon = SubResource("AtlasTexture_mkegr")

@@ -14,6 +14,7 @@ public partial class ButtonManager : Control
 
 	public override void _Ready()
 	{
+		EventBus.Instance.ButtonUpgrade += OnButtonUpgrade;
 
 		_mainbutton = GetNode<Button>("MainButton");
 		_mainbutton.Pressed += OnMainPressed;
@@ -47,6 +48,10 @@ public partial class ButtonManager : Control
 	{
 		Stats.Instance.UpdateNumber(1);
 		
+	}
+
+	private void OnButtonUpgrade(int stage){
+		//TODO: Change Value of add amt based on which upgrade
 	}
 
 	

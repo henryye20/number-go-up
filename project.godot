@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Constants="*uid://d2j7ktadbw1h4"
 Stats="*uid://bphrpx8or4y3m"
+EventBus="*uid://rpa7y2nfp0i0"
 
 [display]
 

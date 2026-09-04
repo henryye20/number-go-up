@@ -4,7 +4,7 @@ using System;
 public partial class ButtonAnimation : Button
 {
 	
-	
+	int stage = 0;
 	// Called when the node enters the scene tree for the first time.
 	private AnimationPlayer _buttonanim;
 	Tween tween;
@@ -16,8 +16,10 @@ public partial class ButtonAnimation : Button
 	private float r_rad;
 	private float r_time = 0.045f;
 
+
 	public override void _Ready()
 	{
+		EventBus.Instance.ButtonUpgrade += OnButtonUpgrade;
 		_buttonanim = GetNode<AnimationPlayer>("ButtonImg/ButtonAnim");
 		MouseEntered += OnMouseEntered;
 		MouseExited += OnMouseExited;
@@ -105,5 +107,8 @@ public partial class ButtonAnimation : Button
 		
 		PressAnim(button_r,spin);
 
+	}
+	private void OnButtonUpgrade(){
+		//TODO: Change Img and other animation stuff 
 	}
 }

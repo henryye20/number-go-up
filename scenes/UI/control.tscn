@@ -15,7 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://bp0nuugfw47aq" path="res://art/sbut/sbut3.png" id="10_ltarh"]
 [ext_resource type="Texture2D" uid="uid://bul6pkj5drxao" path="res://art/sbut/sbut4.png" id="11_a64mt"]
 [ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
-[ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/tree.tscn" id="16_074bi"]
+[ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
+[ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
 
 [sub_resource type="Gradient" id="Gradient_ltarh"]
 offsets = PackedFloat32Array(1)
@@ -118,6 +119,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 script = ExtResource("1_i7dbw")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1018359846]
@@ -130,8 +132,15 @@ grow_vertical = 2
 texture = SubResource("GradientTexture1D_a64mt")
 metadata/_edit_lock_ = true
 
-[node name="Tree" parent="." unique_id=1461711897 instance=ExtResource("16_074bi")]
+[node name="tree0" parent="." unique_id=1461711897 instance=ExtResource("16_074bi")]
 layout_mode = 0
+
+[node name="Apple0" parent="." unique_id=1380887214 instance=ExtResource("17_iu01i")]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 353.0
+offset_right = 388.0
+offset_bottom = 471.0
 
 [node name="Number" type="Label" parent="." unique_id=384437704]
 layout_mode = 1

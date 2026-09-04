@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://be1rjvwtk6ym8"]
+
+[ext_resource type="Texture2D" uid="uid://cuap2qe2ruucu" path="res://art/Tree/apple_0.png" id="1_1tbu7"]
+[ext_resource type="Script" uid="uid://k65ub47oo7h5" path="res://scripts/Upgrades/Tree0/Apple0.cs" id="2_54q1j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54q1j"]
+atlas = ExtResource("1_1tbu7")
+region = Rect2(1289.333, 753.38416, 118.871826, 118.871765)
+
+[node name="Apple0" type="TextureRect" unique_id=1380887214]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+texture = SubResource("AtlasTexture_54q1j")
+stretch_mode = 3
+script = ExtResource("2_54q1j")

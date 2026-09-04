@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Tree : TextureRect
+public partial class Tree0 : TextureRect
 {
 	private bool _isDragging;
     private Vector2 _offset;

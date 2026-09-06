@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_54q1j"]
 atlas = ExtResource("1_1tbu7")
-region = Rect2(1289.333, 753.38416, 118.871826, 118.871765)
+region = Rect2(17.098774, 7.422001, 65.7538, 75.89206)
 
 [node name="Apple0" type="TextureRect" unique_id=1380887214]
 offset_right = 40.0

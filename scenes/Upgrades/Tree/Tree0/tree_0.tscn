@@ -13,3 +13,25 @@ offset_bottom = 475.0
 texture = SubResource("AtlasTexture_1j2jh")
 stretch_mode = 3
 script = ExtResource("1_1j2jh")
+
+[node name="appletimer" type="Timer" parent="." unique_id=1595976254]
+wait_time = 3.0
+autostart = true
+
+[node name="Markers" type="Control" parent="." unique_id=605442316]
+anchors_preset = 0
+
+[node name="M1" type="Marker2D" parent="Markers" unique_id=313902563]
+position = Vector2(21, 395)
+
+[node name="M2" type="Marker2D" parent="Markers" unique_id=921307737]
+position = Vector2(69, 474)
+
+[node name="M3" type="Marker2D" parent="Markers" unique_id=1974670901]
+position = Vector2(159, 518)
+
+[node name="M4" type="Marker2D" parent="Markers" unique_id=54330105]
+position = Vector2(247, 489)
+
+[node name="M5" type="Marker2D" parent="Markers" unique_id=823217277]
+position = Vector2(309, 425)

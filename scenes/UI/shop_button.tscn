@@ -7,5 +7,8 @@
 [node name="ShopButton" type="Button" unique_id=1331519468]
 offset_right = 102.0
 offset_bottom = 53.0
+mouse_default_cursor_shape = 2
+action_mode = 0
 icon = SubResource("AtlasTexture_mkegr")
+flat = true
 script = ExtResource("1_rjaqt")

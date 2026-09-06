@@ -3,18 +3,19 @@
 [ext_resource type="Script" uid="uid://bsu87pknei6to" path="res://scripts/UI/ButtonManager.cs" id="1_i7dbw"]
 [ext_resource type="Script" uid="uid://d2nuc2uglch27" path="res://scripts/UI/NumberText.cs" id="2_a64mt"]
 [ext_resource type="Script" uid="uid://b3xdja7g8c113" path="res://scripts/UI/ButtonAnimation.cs" id="2_ex8ew"]
-[ext_resource type="Texture2D" uid="uid://be2e40vi72lr4" path="res://art/button/button_1.png" id="2_lmo2c"]
-[ext_resource type="Texture2D" uid="uid://cg87epxehtstv" path="res://art/button/button_2.png" id="4_cetho"]
-[ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button_3.png" id="5_1fmla"]
-[ext_resource type="Texture2D" uid="uid://cmrga8qtd1vmx" path="res://art/button/button_4.png" id="6_hge6c"]
-[ext_resource type="Texture2D" uid="uid://c6xnutvvwmij3" path="res://art/button/button_5.png" id="7_q2y38"]
+[ext_resource type="Texture2D" uid="uid://be2e40vi72lr4" path="res://art/button/button0/button_1.png" id="2_lmo2c"]
+[ext_resource type="Texture2D" uid="uid://cg87epxehtstv" path="res://art/button/button1/button_2.png" id="4_cetho"]
+[ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button1/button_3.png" id="5_1fmla"]
+[ext_resource type="Texture2D" uid="uid://cmrga8qtd1vmx" path="res://art/button/button1/button_4.png" id="6_hge6c"]
+[ext_resource type="Texture2D" uid="uid://c6xnutvvwmij3" path="res://art/button/button1/button_5.png" id="7_q2y38"]
 [ext_resource type="Texture2D" uid="uid://yn7px7ok5cvo" path="res://art/sbut/sbut1.png" id="8_cfe4l"]
 [ext_resource type="Script" uid="uid://b63wrrylgwdtr" path="res://scripts/UI/ShopUnlock.cs" id="8_elthy"]
-[ext_resource type="Script" uid="uid://du38oupdq26da" path="res://scripts/UI/UpgradeMenu.cs" id="8_ltarh"]
 [ext_resource type="Texture2D" uid="uid://cfeedle4bvd31" path="res://art/sbut/sbut2.png" id="9_elthy"]
 [ext_resource type="Texture2D" uid="uid://bp0nuugfw47aq" path="res://art/sbut/sbut3.png" id="10_ltarh"]
 [ext_resource type="Texture2D" uid="uid://bul6pkj5drxao" path="res://art/sbut/sbut4.png" id="11_a64mt"]
+[ext_resource type="Script" uid="uid://doy0ovcuimkha" path="res://scripts/UI/Shop.cs" id="11_l5qq7"]
 [ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
+[ext_resource type="Texture2D" uid="uid://dc2pwplxdgv7h" path="res://art/shop/shop0/shop0.png" id="12_l5qq7"]
 [ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_l076w"]
 [ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
 [ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
@@ -68,12 +69,9 @@ _data = {
 &"button_imgs": SubResource("Animation_cetho")
 }
 
-[sub_resource type="SystemFont" id="SystemFont_i7dbw"]
-subpixel_positioning = 0
-
-[sub_resource type="Theme" id="Theme_lmo2c"]
-default_font = SubResource("SystemFont_i7dbw")
-default_font_size = 45
+[sub_resource type="AtlasTexture" id="AtlasTexture_l076w"]
+atlas = ExtResource("12_l5qq7")
+region = Rect2(1490.6847, 0, 429.3153, 1080)
 
 [sub_resource type="Animation" id="Animation_iu01i"]
 length = 0.001
@@ -135,13 +133,7 @@ metadata/_edit_lock_ = true
 
 [node name="tree0" parent="." unique_id=1461711897 instance=ExtResource("16_074bi")]
 layout_mode = 0
-
-[node name="Apple0" parent="." unique_id=1380887214 instance=ExtResource("17_iu01i")]
-layout_mode = 0
-offset_left = 270.0
-offset_top = 353.0
-offset_right = 388.0
-offset_bottom = 471.0
+Apple0 = ExtResource("17_iu01i")
 
 [node name="Number" type="Label" parent="." unique_id=384437704]
 layout_mode = 1
@@ -171,6 +163,7 @@ offset_bottom = 4.999939
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_default_cursor_shape = 2
 flat = true
 script = ExtResource("2_ex8ew")
 metadata/_edit_use_anchors_ = true
@@ -198,44 +191,54 @@ metadata/_edit_lock_ = true
 libraries/ = SubResource("AnimationLibrary_1fmla")
 speed_scale = 0.5
 
-[node name="UpgradeMenu" type="VBoxContainer" parent="." unique_id=734201524]
+[node name="Shop" type="Control" parent="." unique_id=901985982]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("11_l5qq7")
+
+[node name="ShopImg" type="TextureRect" parent="Shop" unique_id=183889775]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.82807505
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 37.525
+anchor_right = 48.0
+anchor_bottom = 27.0
+texture = SubResource("AtlasTexture_l076w")
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ShopButtons" type="VBoxContainer" parent="Shop" unique_id=734201524]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.9445251
+anchor_top = 3.2
+anchor_right = 7.5523987
+anchor_bottom = 17.7
+offset_left = 1556.781
+offset_right = 1627.904
+offset_bottom = 372.0
 grow_horizontal = 0
 grow_vertical = 2
-script = ExtResource("8_ltarh")
+theme_override_constants/separation = 12
 metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
 
-[node name="BuyTitle" type="RichTextLabel" parent="UpgradeMenu" unique_id=1908947700]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-theme = SubResource("Theme_lmo2c")
-text = "UPGRADES"
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ShopButton" parent="UpgradeMenu" unique_id=1331519468 instance=ExtResource("12_l076w")]
-custom_minimum_size = Vector2(0, 100)
+[node name="ShopButton" parent="Shop/ShopButtons" unique_id=1331519468 instance=ExtResource("12_l076w")]
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
-[node name="Buy1" type="Button" parent="UpgradeMenu" unique_id=1924275321]
+[node name="Buy1" type="Button" parent="Shop/ShopButtons" unique_id=1924275321]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
 text = "+1"
 
-[node name="Buy2" type="Button" parent="UpgradeMenu" unique_id=1392715926]
+[node name="Buy2" type="Button" parent="Shop/ShopButtons" unique_id=1392715926]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
 text = "+1 per 5s"
 
-[node name="Timer" type="Timer" parent="UpgradeMenu/Buy2" unique_id=1907106066]
+[node name="Timer" type="Timer" parent="Shop/ShopButtons/Buy2" unique_id=1907106066]
 wait_time = 5.0
 
 [node name="ShopUnlock" type="Button" parent="." unique_id=1004683484]

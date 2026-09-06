@@ -5,7 +5,7 @@ public partial class ShopUnlock : Button
 {
 	
 	private AnimationPlayer _shopanim;
-	private VBoxContainer _upgrademenu;
+	
 	const int cost = 30;
 	Tween tween;
 	
@@ -15,7 +15,6 @@ public partial class ShopUnlock : Button
 	public override void _Ready()
 	{
 		_shopanim = GetNode<AnimationPlayer>("ShopUnlockImg/ShockUnlockAnim");
-		_upgrademenu = GetNode<VBoxContainer>("../UpgradeMenu");
 
 		MouseEntered += OnMouseEntered;
 		MouseExited += OnMouseExited;
@@ -43,8 +42,8 @@ public partial class ShopUnlock : Button
 
 	private void OnPressed(){
 		if(Stats.Instance.number>= cost){
-			this.Visible = false;
-			_upgrademenu.Visible = true;
+			QueueFree();
+			EventBus.Instance.TriggerShopUnlocked();
 			Stats.Instance.UpdateNumber(-cost);
 		}
 		

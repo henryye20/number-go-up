@@ -10,6 +10,8 @@ public partial class ButtonManager : Control
 
 	private Timer B2time;
 
+
+	
 	public override void _Ready()
 	{
 		EventBus.Instance.ButtonUpgrade += OnButtonUpgrade;

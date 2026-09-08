@@ -7,7 +7,8 @@ public partial class ShopButton : Button
 	private int addamt;
 	private int stage;
 	private int level;
-	// Called when the node enters the scene tree for the first time.
+	
+
 	public override void _Ready()
 	{
 		stage = 0;
@@ -22,12 +23,12 @@ public partial class ShopButton : Button
 		
 		if(Stats.Instance.number>= cost){
 			level++;
-			if(level%5==0){
+			if(level%Constants.levels_per_stage==0){
 				stage++;
 			}
 			Stats.Instance.UpdateNumber(-cost);
-			cost *= (stage+1);
-			EventBus.Instance.TriggerButtonUpgrade(stage);
+			cost *= stage+1;
+			EventBus.Instance.TriggerButtonUpgrade(this,stage);
 			addamt += stage+1;
 		}
 		

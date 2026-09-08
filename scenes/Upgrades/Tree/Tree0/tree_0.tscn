@@ -15,7 +15,7 @@ stretch_mode = 3
 script = ExtResource("1_1j2jh")
 
 [node name="appletimer" type="Timer" parent="." unique_id=1595976254]
-wait_time = 3.0
+wait_time = 5.0
 autostart = true
 
 [node name="Markers" type="Control" parent="." unique_id=605442316]

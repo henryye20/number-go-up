@@ -7,7 +7,7 @@ public partial class EventBus : Node
 
 
 	[Signal]
-    public delegate void ButtonUpgradeEventHandler(int stage);
+    public delegate void ButtonUpgradeEventHandler(Button button,int stage);
 	[Signal]
     public delegate void ShopUnlockedEventHandler();
 	
@@ -16,8 +16,8 @@ public partial class EventBus : Node
 	{
 		Instance = this;
 	}
-	public void TriggerButtonUpgrade(int stage){
-		EmitSignal(SignalName.ButtonUpgrade,stage);
+	public void TriggerButtonUpgrade(Button button, int stage){
+		EmitSignal(SignalName.ButtonUpgrade,button,stage);
 	}
 	public void TriggerShopUnlocked(){
 		EmitSignal(SignalName.ShopUnlocked);

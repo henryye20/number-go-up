@@ -5,8 +5,7 @@ public partial class Tree0 : TextureRect
 {
     [Export]
     public PackedScene Apple0 { get; set; }
-    int appleamt = 1;
-
+    int appleamt = 5;
 	private bool _isDragging;
     private Vector2 _offset;
 

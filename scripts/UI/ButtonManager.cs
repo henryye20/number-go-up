@@ -28,8 +28,10 @@ public partial class ButtonManager : Control
 		
 	}
 	
-	private void OnButtonUpgrade(int stage){
-		addamt +=(stage+1);
+	private void OnButtonUpgrade(Button button,int stage){
+
+		//placeholder value
+		addamt *=2;
 	}
 
 	

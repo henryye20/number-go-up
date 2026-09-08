@@ -4,12 +4,19 @@ using System;
 public partial class Stats : Node
 {
 	public static Stats Instance { get; private set; }
-	public int number { get; set; } = 0;
-	public int UIstate = 0;
+	public int number { get; private set; } = 0;
+	public UIstage UIstate = UIstage.Basic;
+	public enum UIstage{
+		Basic,
+		Color,
+		Anim,
+		Smooth,
+
+	}
 
 	[Signal]
     public delegate void NumberChangedEventHandler(int newnum);
-	// Called when the node enters the scene tree for the first time.
+
 	
 	public override void _Ready()
 	{

@@ -13,12 +13,13 @@
 [ext_resource type="Texture2D" uid="uid://cfeedle4bvd31" path="res://art/sbut/sbut2.png" id="9_elthy"]
 [ext_resource type="Texture2D" uid="uid://bp0nuugfw47aq" path="res://art/sbut/sbut3.png" id="10_ltarh"]
 [ext_resource type="Texture2D" uid="uid://bul6pkj5drxao" path="res://art/sbut/sbut4.png" id="11_a64mt"]
-[ext_resource type="Script" uid="uid://doy0ovcuimkha" path="res://scripts/UI/Shop.cs" id="11_l5qq7"]
+[ext_resource type="Script" uid="uid://doy0ovcuimkha" path="res://scripts/UI/ShopUI.cs" id="11_l5qq7"]
 [ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
 [ext_resource type="Texture2D" uid="uid://dc2pwplxdgv7h" path="res://art/shop/shop0/shop0.png" id="12_l5qq7"]
 [ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_l076w"]
 [ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
 [ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
+[ext_resource type="Texture2D" uid="uid://765l7v0c24up" path="res://art/settings/settings0/settings0.png" id="20_16u76"]
 
 [sub_resource type="Gradient" id="Gradient_ltarh"]
 offsets = PackedFloat32Array(1)
@@ -109,6 +110,10 @@ _data = {
 &"RESET": SubResource("Animation_iu01i"),
 &"shop_imgs": SubResource("Animation_l076w")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d7v6i"]
+atlas = ExtResource("20_16u76")
+region = Rect2(1280.8383, 23.722391, 146.19873, 126.44216)
 
 [node name="Control" type="Control" unique_id=115132332]
 layout_mode = 3
@@ -226,21 +231,6 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 
-[node name="Buy1" type="Button" parent="Shop/ShopButtons" unique_id=1924275321]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-text = "+1"
-
-[node name="Buy2" type="Button" parent="Shop/ShopButtons" unique_id=1392715926]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-text = "+1 per 5s"
-
-[node name="Timer" type="Timer" parent="Shop/ShopButtons/Buy2" unique_id=1907106066]
-wait_time = 5.0
-
 [node name="ShopUnlock" type="Button" parent="." unique_id=1004683484]
 layout_mode = 1
 anchors_preset = -1
@@ -274,3 +264,14 @@ metadata/_edit_lock_ = true
 [node name="ShockUnlockAnim" type="AnimationPlayer" parent="ShopUnlock/ShopUnlockImg" unique_id=410104222]
 libraries/ = SubResource("AnimationLibrary_l5qq7")
 speed_scale = 0.5
+
+[node name="Button" type="Button" parent="." unique_id=1146152856]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6791667
+anchor_top = 0.030555556
+anchor_right = 0.759375
+anchor_bottom = 0.15462963
+icon = SubResource("AtlasTexture_d7v6i")
+flat = true
+metadata/_edit_use_anchors_ = true

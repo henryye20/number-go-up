@@ -14,7 +14,6 @@ public partial class ButtonManager : Control
 	
 	public override void _Ready()
 	{
-		EventBus.Instance.ButtonUpgrade += OnButtonUpgrade;
 
 		_mainbutton = GetNode<Button>("MainButton");
 		_mainbutton.Pressed += OnMainPressed;
@@ -28,11 +27,7 @@ public partial class ButtonManager : Control
 		
 	}
 	
-	private void OnButtonUpgrade(Button button,int stage){
-
-		//placeholder value
-		addamt *=2;
-	}
+	
 
 	
 

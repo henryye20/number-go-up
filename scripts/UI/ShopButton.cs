@@ -1,38 +1,46 @@
 using Godot;
 using System;
-
+using Godot.Collections;
 public partial class ShopButton : Button
 {	
-	private int cost;
-	private int addamt;
-	private int stage;
-	private int level;
-	
+	[Export] public string ButtonId { get; set; } = "button";
 
+
+
+	private Label cost_text;
+	private Label level_text;
+	
+	[Export] public Array<Texture2D> num_imgs { get; set; } = new();
 	public override void _Ready()
 	{
-		stage = 0;
-		level = 0;
-		cost = 15;
+		cost_text = GetNode<Label>("Cost");
+		level_text = GetNode<Label>("Level");
+	
 		Pressed += OnPressed;
-		addamt = 2;
-		
-		
+		UpdateUI();
+
 	}
 	private void OnPressed(){
 		
-		if(Stats.Instance.number>= cost){
-			level++;
-			if(level%Constants.levels_per_stage==0){
-				stage++;
-			}
-			Stats.Instance.UpdateNumber(-cost);
-			cost *= stage+1;
-			EventBus.Instance.TriggerButtonUpgrade(this,stage);
-			addamt += stage+1;
+		if(Stats.Instance.TryBuy(ButtonId)){
+			EventBus.Instance.TriggerButtonUpgrade(this);
+			UpdateUI();
 		}
 		
+	}
+
+	public void UpdateButton()
+	{
+		UpdateUI();
+	}
+	private void UpdateUI()
+	{
+		cost_text.Text = Stats.Instance.GetCost(ButtonId).ToString();
+		level_text.Text = Stats.Instance.GetLevel(ButtonId).ToString();
 		
 	}
+
+
+
 	
 }

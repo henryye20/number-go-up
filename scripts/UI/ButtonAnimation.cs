@@ -19,7 +19,7 @@ public partial class ButtonAnimation : Button
 
 	public override void _Ready()
 	{
-		EventBus.Instance.ButtonUpgrade += OnButtonUpgrade;
+		
 		_buttonanim = GetNode<AnimationPlayer>("ButtonImg/ButtonAnim");
 		MouseEntered += OnMouseEntered;
 		MouseExited += OnMouseExited;

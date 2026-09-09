@@ -7,17 +7,27 @@ public partial class EventBus : Node
 
 
 	[Signal]
-    public delegate void ButtonUpgradeEventHandler(Button button,int stage);
+    public delegate void ButtonUpgradeEventHandler(ShopButton button);
 	[Signal]
     public delegate void ShopUnlockedEventHandler();
 	
-
-	public override void _Ready()
-	{
-		Instance = this;
-	}
-	public void TriggerButtonUpgrade(Button button, int stage){
-		EmitSignal(SignalName.ButtonUpgrade,button,stage);
+	public override void _EnterTree()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            QueueFree(); // Prevent duplicate instances
+        }
+    }
+	// public override void _Ready()
+	// {
+	// 	Instance = this;
+	// }
+	public void TriggerButtonUpgrade(ShopButton button){
+		EmitSignal(SignalName.ButtonUpgrade,button);
 	}
 	public void TriggerShopUnlocked(){
 		EmitSignal(SignalName.ShopUnlocked);

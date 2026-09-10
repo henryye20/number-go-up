@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b0v7gw7hxdwhl"]
+
+[ext_resource type="Texture2D" uid="uid://cyf3ud5nqoyn3" path="res://art/pond/pond_0.png" id="1_vdld4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goh0v"]
+atlas = ExtResource("1_vdld4")
+region = Rect2(668.7265, 357.80423, 468.17462, 177.58347)
+
+[node name="pond0" type="TextureRect" unique_id=713549325]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_goh0v")

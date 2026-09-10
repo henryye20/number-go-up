@@ -12,7 +12,7 @@ public partial class Stats : Node
 	private Dictionary<string, int> ItemLevels = new()
     {
         { "button", 0 },
-        { "tree", 0 },
+        { "tree", -1 },
         
     };
 	private Dictionary<string, int> ItemCosts = new()
@@ -61,8 +61,12 @@ public partial class Stats : Node
 	}
 	private void OnButtonUpgrade(ShopButton button)
 	{
-		string ButtonId = button.ButtonId;
 		
+		string ButtonId = button.ButtonId;
+		if (ItemLevels[ButtonId] == -1)
+		{
+			button.FirstBuy();
+		}
 		if (++ItemLevels[ButtonId] >= UIState.LevelCap)
 		{
 			ItemCapped[ButtonId] = true;
@@ -91,7 +95,7 @@ public partial class Stats : Node
 		
 		if (ItemCosts[id] <= number&& !ItemCapped[id])
 		{
-			UpdateNumber(ItemCosts[id]);
+			UpdateNumber(-ItemCosts[id]);
 			return true;
 		}
 		else

@@ -6,40 +6,36 @@ public partial class Stats : Node
 {
 	private Dictionary<string,bool> ItemCapped = new()
 	{
-		{ "button", false },
-        { "tree", false },
+		{ "tree", false },
+        { "pond", false },
+		{ "cloud", false },
 	};
 	private Dictionary<string, int> ItemLevels = new()
     {
-        { "button", 0 },
-        { "tree", -1 },
-        
+        { "tree", 0 },
+        { "pond", -1 },
+		{ "cloud", -1 },
     };
 	private Dictionary<string, int> ItemCosts = new()
     {
-        { "button", 5 },
-        { "tree", 30 },
+        { "tree", 10 },
+        { "pond", 30 },
+		{ "cloud", 60 },
         
     };
 	public static Stats Instance { get; private set; }
 	public int number { get; private set; } = 0;
-	public enum Stage{
-			Basic,
-			Color,
-			Anim,
-			Smooth,
-
-		}
+	
 	public struct StageObj
 	{
-		public Stage stage;
+		public int stage;
 		public int LevelCap;
 		public StageObj()
 		{
-			stage = Stage.Basic;
+			stage = 0;
 			LevelCap = 5;
 		}
-		public StageObj(Stage new_stage,int level_cap)
+		public StageObj(int new_stage,int level_cap)
 		{
 			stage = new_stage;
 			LevelCap = level_cap;
@@ -47,7 +43,7 @@ public partial class Stats : Node
 		
 	}
 		
-	public StageObj UIState = new StageObj(Stage.Basic,5);
+	public StageObj UIState = new StageObj(0,5);
 
 	[Signal]
     public delegate void NumberChangedEventHandler(int newnum);
@@ -63,17 +59,21 @@ public partial class Stats : Node
 	{
 		
 		string ButtonId = button.ButtonId;
+		GD.Print(ItemLevels[ButtonId]);
+		
 		if (ItemLevels[ButtonId] == -1)
 		{
+			GD.Print("FIRSTBUY");
 			button.FirstBuy();
 		}
+
 		if (++ItemLevels[ButtonId] >= UIState.LevelCap)
 		{
 			ItemCapped[ButtonId] = true;
 		}
 		
 		//placeholder cost function
-		ItemCosts[ButtonId] += +10;
+		ItemCosts[ButtonId] += 10;
 
 		button.UpdateButton();
 		if (IsAllCapped())
@@ -93,8 +93,9 @@ public partial class Stats : Node
 	public bool TryBuy(string id)
 	{
 		
-		if (ItemCosts[id] <= number&& !ItemCapped[id])
+		if (ItemCosts[id] <= number && !ItemCapped[id])
 		{
+			
 			UpdateNumber(-ItemCosts[id]);
 			return true;
 		}
@@ -139,6 +140,7 @@ public partial class Stats : Node
 	{
 		// change shop texture to new texture
 		GD.Print($"UI upgraded to {UIState.stage}" );
+
 		return;
 	}
 	private bool IsAllCapped()

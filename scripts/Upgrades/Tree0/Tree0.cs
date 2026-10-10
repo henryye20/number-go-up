@@ -80,7 +80,15 @@ public partial class Tree0 : TextureRect
         
         GetTree().CurrentScene.AddChild(apple);
         
-        apple.GlobalPosition = pos;
+        List<float> applerotations = new List<float> {Mathf.DegToRad(-20),0,Mathf.DegToRad(20)};
         
+        apple.GlobalPosition = pos;
+        apple.Rotation = applerotations[(int)GD.RandRange(0, 2)];
+        
+    }
+
+    public void ChangeAppleValue(int amt)
+    {
+        appleamt = amt;
     }
 }

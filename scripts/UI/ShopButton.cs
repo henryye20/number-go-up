@@ -7,6 +7,7 @@ public partial class ShopButton : Button
 	[Export] public PackedScene spawnable;
 
 
+	private TextureRect lock_img;
 	private Label cost_text;
 	private Label level_text;
 	
@@ -15,7 +16,7 @@ public partial class ShopButton : Button
 	{
 		cost_text = GetNode<Label>("Cost");
 		level_text = GetNode<Label>("Level");
-	
+		lock_img = GetNode<TextureRect>("Lock");
 		Pressed += OnPressed;
 		UpdateUI();
 
@@ -36,12 +37,32 @@ public partial class ShopButton : Button
 	private void UpdateUI()
 	{
 		cost_text.Text = Stats.Instance.GetCost(ButtonId).ToString();
-		level_text.Text = Stats.Instance.GetLevel(ButtonId).ToString();
+
+		int level = Stats.Instance.GetLevel(ButtonId);
+		if (level == -1)
+		{
+			level_text.Text = "";
+
+
+		}
+		else if(level==0)
+		{
+			level_text.Text = "";
+			lock_img.Visible = false;
+		}
+		else
+		{
+			level_text.Text = level.ToString();
+		}
+		
+
 		
 	}
-	private void FirstBuy()
+	public void FirstBuy()
 	{
-		
+		Node spawnedNode = spawnable.Instantiate();
+		GetTree().CurrentScene.AddChild(spawnedNode);
+		lock_img.Visible = false;
 	}
 
 

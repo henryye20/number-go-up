@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://bsiict2uqfmla"]
 
 [ext_resource type="Script" uid="uid://b8cbpwluxbvec" path="res://scripts/UI/ShopButton.cs" id="1_rjaqt"]
+[ext_resource type="Texture2D" uid="uid://c121i5bjl7fxv" path="res://art/shop/shop0/lock0.png" id="3_460x5"]
 [ext_resource type="FontFile" uid="uid://b87ytruqo0ehl" path="res://art/fonts/HandFont.ttf" id="3_qf8us"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mkegr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlvlx"]
+atlas = ExtResource("3_460x5")
+region = Rect2(1794.5702, 266.00726, 75.02307, 80.5267)
 
 [node name="ShopButton" type="Button" unique_id=1331519468]
 offset_right = 410.0
@@ -47,3 +52,18 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_qf8us")
 theme_override_font_sizes/font_size = 100
 text = "3"
+
+[node name="Lock" type="TextureRect" parent="." unique_id=572679828]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -30.0
+offset_right = -15.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = SubResource("AtlasTexture_vlvlx")

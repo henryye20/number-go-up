@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
 [ext_resource type="Texture2D" uid="uid://dc2pwplxdgv7h" path="res://art/shop/shop0/shop0.png" id="12_l5qq7"]
 [ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_l076w"]
+[ext_resource type="PackedScene" uid="uid://b0v7gw7hxdwhl" path="res://scenes/Upgrades/Pond/pond_0.tscn" id="14_d7v6i"]
 [ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
 [ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
 [ext_resource type="Texture2D" uid="uid://765l7v0c24up" path="res://art/settings/settings0/settings0.png" id="20_16u76"]
@@ -138,6 +139,10 @@ metadata/_edit_lock_ = true
 
 [node name="tree0" parent="." unique_id=1461711897 instance=ExtResource("16_074bi")]
 layout_mode = 0
+offset_left = 788.0
+offset_top = 368.0
+offset_right = 1130.0
+offset_bottom = 843.0
 Apple0 = ExtResource("17_iu01i")
 
 [node name="Number" type="Label" parent="." unique_id=384437704]
@@ -157,6 +162,7 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="MainButton" type="Button" parent="." unique_id=1962091946]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.41770834
@@ -227,9 +233,17 @@ grow_vertical = 2
 theme_override_constants/separation = 12
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopButton" parent="Shop/ShopButtons" unique_id=1331519468 instance=ExtResource("12_l076w")]
+[node name="TreeShopButton" parent="Shop/ShopButtons" unique_id=523727664 instance=ExtResource("12_l076w")]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
+ButtonId = "tree"
+spawnable = ExtResource("16_074bi")
+
+[node name="PondShopButton" parent="Shop/ShopButtons" unique_id=1331519468 instance=ExtResource("12_l076w")]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+ButtonId = "pond"
+spawnable = ExtResource("14_d7v6i")
 
 [node name="ShopUnlock" type="Button" parent="." unique_id=1004683484]
 layout_mode = 1
@@ -265,7 +279,7 @@ metadata/_edit_lock_ = true
 libraries/ = SubResource("AnimationLibrary_l5qq7")
 speed_scale = 0.5
 
-[node name="Button" type="Button" parent="." unique_id=1146152856]
+[node name="Settings" type="Button" parent="." unique_id=1146152856]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.6791667

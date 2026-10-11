@@ -32,13 +32,19 @@ public partial class Stats : Node
 		public int LevelCap;
 		public StageObj()
 		{
-			stage = 0;
+			stage = 1;
 			LevelCap = 5;
 		}
 		public StageObj(int new_stage,int level_cap)
 		{
 			stage = new_stage;
 			LevelCap = level_cap;
+		}
+
+		public void UpgradeStage()
+		{
+			stage++;
+			LevelCap = stage * 5;
 		}
 		
 	}
@@ -47,6 +53,7 @@ public partial class Stats : Node
 
 	[Signal]
     public delegate void NumberChangedEventHandler(int newnum);
+	
 
 	
 	public override void _Ready()
@@ -54,31 +61,33 @@ public partial class Stats : Node
 		Instance = this;
 		
 		EventBus.Instance.ButtonUpgrade+= OnButtonUpgrade;
+		
 	}
 	private void OnButtonUpgrade(ShopButton button)
 	{
 		
 		string ButtonId = button.ButtonId;
-		GD.Print(ItemLevels[ButtonId]);
-		
-		if (ItemLevels[ButtonId] == -1)
-		{
-			GD.Print("FIRSTBUY");
-			button.FirstBuy();
-		}
 
-		if (++ItemLevels[ButtonId] >= UIState.LevelCap)
+		
+		if (ItemLevels[ButtonId] < UIState.LevelCap)
 		{
+			if (ItemLevels[ButtonId] == -1)
+			{
+				button.FirstBuy();
+			}
+			ItemLevels[ButtonId]++;
+			//placeholder cost function
+			ItemCosts[ButtonId] += 10;
+		}
+		if(ItemLevels[ButtonId]==UIState.LevelCap)
+		{
+			
 			ItemCapped[ButtonId] = true;
 		}
 		
-		//placeholder cost function
-		ItemCosts[ButtonId] += 10;
 
-		button.UpdateButton();
 		if (IsAllCapped())
 		{
-			UIState.stage++;
 			UIUpgrade();
 		}
 		
@@ -90,13 +99,13 @@ public partial class Stats : Node
 		EmitSignal(SignalName.NumberChanged,number);
 	}
 
-	public bool TryBuy(string id)
+	public bool TryBuy(string ButtonId)
 	{
 		
-		if (ItemCosts[id] <= number && !ItemCapped[id])
+		if (ItemCosts[ButtonId] <= number && !ItemCapped[ButtonId])
 		{
 			
-			UpdateNumber(-ItemCosts[id]);
+			UpdateNumber(-ItemCosts[ButtonId]);
 			return true;
 		}
 		else
@@ -106,9 +115,9 @@ public partial class Stats : Node
 		}
 	}
 
-	public int GetLevel(string id)
+	public int GetLevel(string ButtonId)
 	{
-		if(ItemLevels.TryGetValue(id,out int level))
+		if(ItemLevels.TryGetValue(ButtonId,out int level))
 		{
 			return level;
 		}
@@ -116,14 +125,14 @@ public partial class Stats : Node
 
 		else
 		{
-			GD.Print($"{id} does not exist in ItemLevels");
+			GD.Print($"{ButtonId} does not exist in ItemLevels");
 			return -1;
 		}
 	}
 
-	public int GetCost(string id)
+	public int GetCost(string ButtonId)
 	{
-		if(ItemCosts.TryGetValue(id,out int cost))
+		if(ItemCosts.TryGetValue(ButtonId,out int cost))
 		{
 			return cost;
 		}
@@ -131,17 +140,30 @@ public partial class Stats : Node
 
 		else
 		{
-			GD.Print($"{id} does not exist in ItemCosts");
+			GD.Print($"{ButtonId} does not exist in ItemCosts");
 			return -1;
 		}
+	}
+	public bool IsCapped(string ButtonId)
+	{
+		return ItemCapped[ButtonId];
 	}
 
 	private void UIUpgrade()
 	{
+		UIState.UpgradeStage();
+
 		// change shop texture to new texture
 		GD.Print($"UI upgraded to {UIState.stage}" );
 
-		return;
+		foreach(string key in ItemCapped.Keys)
+		{
+			ItemCapped[key]=false;
+		}
+
+		EventBus.Instance.TriggerStageUpgrade();
+
+
 	}
 	private bool IsAllCapped()
 	{

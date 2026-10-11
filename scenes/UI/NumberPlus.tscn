@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dxr6sdwgrxws7"]
+
+[ext_resource type="Script" uid="uid://52m4vmf7n3ga" path="res://scripts/UI/NumberPlus.cs" id="1_bkne7"]
+[ext_resource type="FontFile" uid="uid://b87ytruqo0ehl" path="res://art/fonts/HandFont.ttf" id="1_xosdd"]
+[ext_resource type="Texture2D" uid="uid://cjc2tyvkauha" path="res://art/fonts/+.png" id="2_mbb62"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbb62"]
+atlas = ExtResource("2_mbb62")
+region = Rect2(1252.5798, 789.1933, 25.462646, 25.350952)
+
+[node name="numberplus" type="Control" unique_id=1629310622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1847.0
+offset_bottom = -1042.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bkne7")
+
+[node name="Number" type="Label" parent="." unique_id=492175223]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -38.0
+offset_right = 117.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_xosdd")
+theme_override_font_sizes/font_size = 90
+text = "1"
+
+[node name="Plus" type="TextureRect" parent="." unique_id=1588556203]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 35.0
+offset_bottom = 30.0
+texture = SubResource("AtlasTexture_mbb62")

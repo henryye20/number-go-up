@@ -9,8 +9,7 @@ public partial class EventBus : Node
 	[Signal]
     public delegate void ButtonUpgradeEventHandler(ShopButton button);
 	[Signal]
-    public delegate void ShopUnlockedEventHandler();
-	
+    public delegate void StageUpgradeEventHandler();
 	public override void _EnterTree()
     {
         if (Instance == null)
@@ -29,9 +28,10 @@ public partial class EventBus : Node
 	public void TriggerButtonUpgrade(ShopButton button){
 		EmitSignal(SignalName.ButtonUpgrade,button);
 	}
-	public void TriggerShopUnlocked(){
-		EmitSignal(SignalName.ShopUnlocked);
 
+	public void TriggerStageUpgrade(){
+		EmitSignal(SignalName.StageUpgrade);
 	}
+	
 	
 }

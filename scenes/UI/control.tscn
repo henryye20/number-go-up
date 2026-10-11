@@ -8,16 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button1/button_3.png" id="5_1fmla"]
 [ext_resource type="Texture2D" uid="uid://cmrga8qtd1vmx" path="res://art/button/button1/button_4.png" id="6_hge6c"]
 [ext_resource type="Texture2D" uid="uid://c6xnutvvwmij3" path="res://art/button/button1/button_5.png" id="7_q2y38"]
-[ext_resource type="Texture2D" uid="uid://yn7px7ok5cvo" path="res://art/sbut/sbut1.png" id="8_cfe4l"]
-[ext_resource type="Script" uid="uid://b63wrrylgwdtr" path="res://scripts/UI/ShopUnlock.cs" id="8_elthy"]
-[ext_resource type="Texture2D" uid="uid://cfeedle4bvd31" path="res://art/sbut/sbut2.png" id="9_elthy"]
-[ext_resource type="Texture2D" uid="uid://bp0nuugfw47aq" path="res://art/sbut/sbut3.png" id="10_ltarh"]
-[ext_resource type="Texture2D" uid="uid://bul6pkj5drxao" path="res://art/sbut/sbut4.png" id="11_a64mt"]
-[ext_resource type="Script" uid="uid://doy0ovcuimkha" path="res://scripts/UI/ShopUI.cs" id="11_l5qq7"]
-[ext_resource type="Texture2D" uid="uid://dsxeueerxehug" path="res://art/sbut/sbut5.png" id="12_074bi"]
 [ext_resource type="Texture2D" uid="uid://dc2pwplxdgv7h" path="res://art/shop/shop0/shop0.png" id="12_l5qq7"]
 [ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_l076w"]
 [ext_resource type="PackedScene" uid="uid://b0v7gw7hxdwhl" path="res://scenes/Upgrades/Pond/pond_0.tscn" id="14_d7v6i"]
+[ext_resource type="PackedScene" uid="uid://dxr6sdwgrxws7" path="res://scenes/UI/NumberPlus.tscn" id="15_a64mt"]
 [ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
 [ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
 [ext_resource type="Texture2D" uid="uid://765l7v0c24up" path="res://art/settings/settings0/settings0.png" id="20_16u76"]
@@ -74,43 +68,6 @@ _data = {
 [sub_resource type="AtlasTexture" id="AtlasTexture_l076w"]
 atlas = ExtResource("12_l5qq7")
 region = Rect2(1490.6847, 0, 429.3153, 1080)
-
-[sub_resource type="Animation" id="Animation_iu01i"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("8_cfe4l")]
-}
-
-[sub_resource type="Animation" id="Animation_l076w"]
-resource_name = "shop_imgs"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("8_cfe4l"), ExtResource("9_elthy"), ExtResource("10_ltarh"), ExtResource("11_a64mt"), ExtResource("12_074bi")]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5qq7"]
-_data = {
-&"RESET": SubResource("Animation_iu01i"),
-&"shop_imgs": SubResource("Animation_l076w")
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7v6i"]
 atlas = ExtResource("20_16u76")
@@ -206,7 +163,6 @@ speed_scale = 0.5
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("11_l5qq7")
 
 [node name="ShopImg" type="TextureRect" parent="Shop" unique_id=183889775]
 layout_mode = 1
@@ -245,40 +201,6 @@ layout_mode = 2
 ButtonId = "pond"
 spawnable = ExtResource("14_d7v6i")
 
-[node name="ShopUnlock" type="Button" parent="." unique_id=1004683484]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.8640625
-anchor_top = 0.06759259
-anchor_right = 0.94739586
-anchor_bottom = 0.21481481
-pivot_offset_ratio = Vector2(0.5, 0.5)
-flat = true
-script = ExtResource("8_elthy")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="ShopUnlockImg" type="TextureRect" parent="ShopUnlock" unique_id=942167007]
-texture_filter = 3
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1671.0
-offset_top = -104.5
-offset_right = 89.0
-offset_bottom = 816.5
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
-mouse_filter = 2
-texture = ExtResource("8_cfe4l")
-metadata/_edit_lock_ = true
-
-[node name="ShockUnlockAnim" type="AnimationPlayer" parent="ShopUnlock/ShopUnlockImg" unique_id=410104222]
-libraries/ = SubResource("AnimationLibrary_l5qq7")
-speed_scale = 0.5
-
 [node name="Settings" type="Button" parent="." unique_id=1146152856]
 layout_mode = 1
 anchors_preset = -1
@@ -289,3 +211,10 @@ anchor_bottom = 0.15462963
 icon = SubResource("AtlasTexture_d7v6i")
 flat = true
 metadata/_edit_use_anchors_ = true
+
+[node name="numberplus" parent="." unique_id=1629310622 instance=ExtResource("15_a64mt")]
+layout_mode = 1
+offset_left = 691.0
+offset_top = 737.0
+offset_right = 691.0
+offset_bottom = 737.0

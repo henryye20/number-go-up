@@ -8,19 +8,19 @@ public partial class Stats : Node
 	{
 		{ "tree", false },
         { "pond", false },
-		{ "cloud", false },
+		
 	};
 	private Dictionary<string, int> ItemLevels = new()
     {
         { "tree", 0 },
         { "pond", -1 },
-		{ "cloud", -1 },
+		
     };
 	private Dictionary<string, int> ItemCosts = new()
     {
         { "tree", 10 },
         { "pond", 30 },
-		{ "cloud", 60 },
+		
         
     };
 	public static Stats Instance { get; private set; }

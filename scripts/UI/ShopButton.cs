@@ -11,7 +11,6 @@ public partial class ShopButton : Button
 	private Label cost_text;
 	private Label level_text;
 	
-	[Export] public Array<Texture2D> num_imgs { get; set; } = new();
 	public override void _Ready()
 	{
 		cost_text = GetNode<Label>("Cost");
@@ -40,7 +39,6 @@ public partial class ShopButton : Button
 		
 		if(Stats.Instance.IsCapped(ButtonId)){
 			
-			level_text.Text = "";
 			
 		}
 		else

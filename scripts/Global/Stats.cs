@@ -4,19 +4,19 @@ using Godot.Collections;
 using System.Threading.Tasks.Dataflow;
 public partial class Stats : Node
 {
-	private Dictionary<string,bool> ItemCapped = new()
+	private Godot.Collections.Dictionary<string,bool> ItemCapped = new()
 	{
 		{ "tree", false },
         { "pond", false },
 		
 	};
-	private Dictionary<string, int> ItemLevels = new()
+	private Godot.Collections.Dictionary<string, int> ItemLevels = new()
     {
         { "tree", 0 },
         { "pond", -1 },
 		
     };
-	private Dictionary<string, int> ItemCosts = new()
+	private Godot.Collections.Dictionary<string, int> ItemCosts = new()
     {
         { "tree", 10 },
         { "pond", 30 },
@@ -88,6 +88,7 @@ public partial class Stats : Node
 
 		if (IsAllCapped())
 		{
+			GD.Print("ALL CAPPED");
 			UIUpgrade();
 		}
 		
@@ -99,12 +100,25 @@ public partial class Stats : Node
 		EmitSignal(SignalName.NumberChanged,number);
 	}
 
-	public bool TryBuy(string ButtonId)
+	public bool TryBuy(ShopButton item)
 	{
+		string ButtonId = item.ButtonId;
+		
+		if(!ItemCosts.ContainsKey(ButtonId))
+		{
+			if(item.InitialCost<=number){
+				ItemCosts[ButtonId] = item.InitialCost;
+				ItemCapped[ButtonId] = false;
+				ItemLevels[ButtonId] = -1;
+			}
+			else{
+				return false;
+			}
+			
+		}
 		
 		if (ItemCosts[ButtonId] <= number && !ItemCapped[ButtonId])
 		{
-			
 			UpdateNumber(-ItemCosts[ButtonId]);
 			return true;
 		}
@@ -122,7 +136,6 @@ public partial class Stats : Node
 			return level;
 		}
 
-
 		else
 		{
 			GD.Print($"{ButtonId} does not exist in ItemLevels");
@@ -137,13 +150,13 @@ public partial class Stats : Node
 			return cost;
 		}
 
-
 		else
 		{
 			GD.Print($"{ButtonId} does not exist in ItemCosts");
 			return -1;
 		}
 	}
+
 	public bool IsCapped(string ButtonId)
 	{
 		return ItemCapped[ButtonId];
@@ -165,6 +178,7 @@ public partial class Stats : Node
 
 
 	}
+
 	private bool IsAllCapped()
 	{
 		bool FullyCapped = true;
@@ -174,6 +188,5 @@ public partial class Stats : Node
 		}
 		return FullyCapped;
 	}
-	
 	
 }

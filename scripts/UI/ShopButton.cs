@@ -5,7 +5,7 @@ public partial class ShopButton : Button
 {	
 	[Export] public string ButtonId { get; set; }
 	[Export] public PackedScene spawnable;
-
+	[Export] public int InitialCost {get; set;}
 
 	private TextureRect lock_img;
 	private Label cost_text;
@@ -24,7 +24,7 @@ public partial class ShopButton : Button
 	}
 	private void OnPressed(){
 		
-		if(Stats.Instance.TryBuy(ButtonId)){
+		if(Stats.Instance.TryBuy(this)){
 			EventBus.Instance.TriggerButtonUpgrade(this);
 			UpdateUI();
 		}

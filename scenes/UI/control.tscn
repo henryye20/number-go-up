@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://c6xnutvvwmij3" path="res://art/button/button1/button_5.png" id="7_q2y38"]
 [ext_resource type="Texture2D" uid="uid://dc2pwplxdgv7h" path="res://art/shop/shop0/shop0.png" id="12_l5qq7"]
 [ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_l076w"]
+[ext_resource type="PackedScene" uid="uid://de37clg44ushq" path="res://scenes/Upgrades/Pond/fish_0.tscn" id="14_a64mt"]
 [ext_resource type="PackedScene" uid="uid://b0v7gw7hxdwhl" path="res://scenes/Upgrades/Pond/pond_0.tscn" id="14_d7v6i"]
-[ext_resource type="PackedScene" uid="uid://dxr6sdwgrxws7" path="res://scenes/UI/NumberPlus.tscn" id="15_a64mt"]
 [ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
 [ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
 [ext_resource type="Texture2D" uid="uid://765l7v0c24up" path="res://art/settings/settings0/settings0.png" id="20_16u76"]
@@ -160,9 +160,16 @@ libraries/ = SubResource("AnimationLibrary_1fmla")
 speed_scale = 0.5
 
 [node name="Shop" type="Control" parent="." unique_id=901985982]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 0.45200002
+anchor_right = 1.0
+anchor_bottom = 0.45200002
+offset_left = -1920.0
+offset_top = -488.16003
+offset_right = -1880.0
+offset_bottom = -448.16003
+metadata/_edit_use_anchors_ = true
 
 [node name="ShopImg" type="TextureRect" parent="Shop" unique_id=183889775]
 layout_mode = 1
@@ -170,9 +177,10 @@ anchors_preset = -1
 anchor_left = 37.525
 anchor_right = 48.0
 anchor_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 2
 texture = SubResource("AtlasTexture_l076w")
 stretch_mode = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="ShopButtons" type="VBoxContainer" parent="Shop" unique_id=734201524]
 layout_mode = 1
@@ -201,6 +209,13 @@ layout_mode = 2
 ButtonId = "pond"
 spawnable = ExtResource("14_d7v6i")
 
+[node name="ShopButton" parent="Shop/ShopButtons" unique_id=880363109 instance=ExtResource("12_l076w")]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+ButtonId = "cloud"
+spawnable = ExtResource("14_a64mt")
+InitialCost = 50
+
 [node name="Settings" type="Button" parent="." unique_id=1146152856]
 layout_mode = 1
 anchors_preset = -1
@@ -211,10 +226,3 @@ anchor_bottom = 0.15462963
 icon = SubResource("AtlasTexture_d7v6i")
 flat = true
 metadata/_edit_use_anchors_ = true
-
-[node name="numberplus" parent="." unique_id=1629310622 instance=ExtResource("15_a64mt")]
-layout_mode = 1
-offset_left = 691.0
-offset_top = 737.0
-offset_right = 691.0
-offset_bottom = 737.0

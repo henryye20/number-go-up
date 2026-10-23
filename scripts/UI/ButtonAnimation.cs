@@ -46,11 +46,11 @@ public partial class ButtonAnimation : Button
 
 			
 			tween.TweenProperty(this, "scale", Vector2.One * button_s, 0.1f)
-                .SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out)
+				.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out)
 				.SetDelay(0.5f);
 			tween.Chain().TweenCallback(Callable.From(() => {
 				Rotation = 0f;
-        		isSpin = false;			
+				isSpin = false;			
 			}));
 			return;
 		}

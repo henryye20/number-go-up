@@ -1,30 +1,26 @@
 using Godot;
 using System;
-using Godot.Collections;
 using System.Threading.Tasks.Dataflow;
 public partial class Stats : Node
-{
-	private Godot.Collections.Dictionary<string,bool> ItemCapped = new()
+{	
+	//index of list is which painting; inner Lists contain each button's values
+	private List<List<bool>> ItemCapped  = new List<List<bool>>();
+	private List<List<int>> ItemLevels = new List<List<int>>();
+	private List<List<int>> ItemCosts = new List<List<int>>();
+	int level = 0;
+	//index of list is which painting; Dictionary's contain ButtonID->Index conversions
+	private ShopButtonIDX List<Dictionary<string,int>> = new List<Dictionary<string,int>>
 	{
-		{ "tree", false },
-        { "pond", false },
-		
-	};
-	private Godot.Collections.Dictionary<string, int> ItemLevels = new()
-    {
-        { "tree", 0 },
-        { "pond", -1 },
-		
-    };
-	private Godot.Collections.Dictionary<string, int> ItemCosts = new()
-    {
-        { "tree", 10 },
-        { "pond", 30 },
-		
-        
-    };
+		new Dictionary<string, int> { { "tree", 0 }, { "pond", 1 }, { "cloud", 2 } },
+    	
+	}; 
+
+	[Signal]
+    public delegate void NumberChangedEventHandler(int newnum);
+
 	public static Stats Instance { get; private set; }
 	public int number { get; private set; } = 0;
+	
 	
 	public struct StageObj
 	{
@@ -50,41 +46,37 @@ public partial class Stats : Node
 	}
 		
 	public StageObj UIState = new StageObj(0,5);
-
-	[Signal]
-    public delegate void NumberChangedEventHandler(int newnum);
 	
 
-	
+	 
 	public override void _Ready()
 	{
 		Instance = this;
 		
 		EventBus.Instance.ButtonUpgrade+= OnButtonUpgrade;
+		EventBus.Instance.ButtonCreated+= OnButtonCreated;
 		
 	}
 	private void OnButtonUpgrade(ShopButton button)
 	{
-		
-		string ButtonId = button.ButtonId;
+			
+		int idx = ShopButtonIDX[button.ButtonID];
 
 		
-		if (ItemLevels[ButtonId] < UIState.LevelCap)
+		if (ItemLevels[level][idx] < UIState.LevelCap)
 		{
-			if (ItemLevels[ButtonId] == -1)
+			if (ItemLevels[level][idx] == -1)
 			{
 				button.FirstBuy();
 			}
-			ItemLevels[ButtonId]++;
+			ItemLevels[level][idx]++;
 			//placeholder cost function
-			ItemCosts[ButtonId] += 10;
+			ItemCosts[level][idx] += 10;
 		}
-		if(ItemLevels[ButtonId]==UIState.LevelCap)
-		{
-			
-			ItemCapped[ButtonId] = true;
+		if(ItemLevels[level][idx]==UIState.LevelCap)
+		{	
+			ItemCapped[level][idx] = true;
 		}
-		
 
 		if (IsAllCapped())
 		{
@@ -94,7 +86,14 @@ public partial class Stats : Node
 		
 
 	}
-	
+	private void OnButtonAdded(ShopButton button)
+	{
+		int idx = ShopButtonIDX[level][button.ButtonID];
+		ItemCapped[level][idx] = false;
+		ItemLevels[level][idx] = -1;
+		ItemCosts[level][idx] = button.InitialCost;
+	}
+
 	public void UpdateNumber(int amt){
 		number += amt;
 		EmitSignal(SignalName.NumberChanged,number);
@@ -102,14 +101,15 @@ public partial class Stats : Node
 
 	public bool TryBuy(ShopButton item)
 	{
-		string ButtonId = item.ButtonId;
+		int idx = ShopButtonIDX[button.ButtonID];
 		
-		if(!ItemCosts.ContainsKey(ButtonId))
+		if(!ItemCosts.ContainsKey(ButtonID))
 		{
 			if(item.InitialCost<=number){
-				ItemCosts[ButtonId] = item.InitialCost;
-				ItemCapped[ButtonId] = false;
-				ItemLevels[ButtonId] = -1;
+				ItemCosts[level][idx] = item.InitialCost;
+				ItemCapped[level][idx] = false;
+				ItemLevels[level][idx] = -1;
+				
 			}
 			else{
 				return false;
@@ -117,9 +117,9 @@ public partial class Stats : Node
 			
 		}
 		
-		if (ItemCosts[ButtonId] <= number && !ItemCapped[ButtonId])
+		if (ItemCosts[level][idx] <= number && !ItemCapped[level][idx])
 		{
-			UpdateNumber(-ItemCosts[ButtonId]);
+			UpdateNumber(-ItemCosts[level][idx]);
 			return true;
 		}
 		else
@@ -129,39 +129,40 @@ public partial class Stats : Node
 		}
 	}
 
-	public int GetLevel(string ButtonId)
+	public int GetLevel(string ButtonID)
 	{
-		if(ItemLevels.TryGetValue(ButtonId,out int level))
+		int idx = ShopButtonIDX[ButtonID];
+		if(ItemLevels[level].TryGetValue(idx,out int level))
 		{
 			return level;
 		}
 
 		else
 		{
-			GD.Print($"{ButtonId} does not exist in ItemLevels");
+			GD.Print($"{ButtonID} does not exist in ItemLevels");
 			return -1;
 		}
 	}
 
-	public int GetCost(string ButtonId)
+	public int GetCost(string ButtonID)
 	{
-		if(ItemCosts.TryGetValue(ButtonId,out int cost))
+		if(ItemCosts[level].TryGetValue(ShopButtonIDX[ButtonID],out int cost))
 		{
 			return cost;
 		}
 
 		else
 		{
-			GD.Print($"{ButtonId} does not exist in ItemCosts");
+			GD.Print($"{ButtonID} does not exist in ItemCosts");
 			return -1;
 		}
 	}
 
-	public bool IsCapped(string ButtonId)
+	public bool IsCapped(string ButtonID)
 	{
-		return ItemCapped[ButtonId];
+		return ItemCapped[level][ShopButtonIDX[ButtonID]];
 	}
-
+	
 	private void UIUpgrade()
 	{
 		UIState.UpgradeStage();
@@ -169,9 +170,9 @@ public partial class Stats : Node
 		// change shop texture to new texture
 		GD.Print($"UI upgraded to {UIState.stage}" );
 
-		foreach(string key in ItemCapped.Keys)
+		for(int i = 0; i<UIState.stage+1; i++)
 		{
-			ItemCapped[key]=false;
+			ItemCapped[level][key]=false;
 		}
 
 		EventBus.Instance.TriggerStageUpgrade();

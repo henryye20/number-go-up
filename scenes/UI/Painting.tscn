@@ -1,20 +1,20 @@
 [gd_scene format=3 uid="uid://br8rghinapqni"]
 
-[ext_resource type="Script" uid="uid://bsu87pknei6to" path="res://scripts/UI/ButtonManager.cs" id="1_i7dbw"]
-[ext_resource type="Script" uid="uid://d2nuc2uglch27" path="res://scripts/UI/NumberText.cs" id="2_a64mt"]
-[ext_resource type="Script" uid="uid://b3xdja7g8c113" path="res://scripts/UI/ButtonAnimation.cs" id="2_ex8ew"]
-[ext_resource type="Texture2D" uid="uid://be2e40vi72lr4" path="res://art/button/button0/button_1.png" id="2_lmo2c"]
-[ext_resource type="Texture2D" uid="uid://cg87epxehtstv" path="res://art/button/button1/button_2.png" id="4_cetho"]
-[ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button1/button_3.png" id="5_1fmla"]
-[ext_resource type="Texture2D" uid="uid://cmrga8qtd1vmx" path="res://art/button/button1/button_4.png" id="6_hge6c"]
-[ext_resource type="Texture2D" uid="uid://c6xnutvvwmij3" path="res://art/button/button1/button_5.png" id="7_q2y38"]
-[ext_resource type="Texture2D" uid="uid://dc2pwplxdgv7h" path="res://art/shop/shop0/shop0.png" id="12_l5qq7"]
-[ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_l076w"]
-[ext_resource type="PackedScene" uid="uid://de37clg44ushq" path="res://scenes/Upgrades/Pond/fish_0.tscn" id="14_a64mt"]
-[ext_resource type="PackedScene" uid="uid://b0v7gw7hxdwhl" path="res://scenes/Upgrades/Pond/pond_0.tscn" id="14_d7v6i"]
-[ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="16_074bi"]
-[ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="17_iu01i"]
-[ext_resource type="Texture2D" uid="uid://765l7v0c24up" path="res://art/settings/settings0/settings0.png" id="20_16u76"]
+[ext_resource type="Script" uid="uid://bsu87pknei6to" path="res://scripts/UI/ButtonManager.cs" id="1_7338a"]
+[ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="2_nk42b"]
+[ext_resource type="PackedScene" uid="uid://be1rjvwtk6ym8" path="res://scenes/Upgrades/Tree/Tree0/apple_0.tscn" id="3_74su8"]
+[ext_resource type="Script" uid="uid://d2nuc2uglch27" path="res://scripts/UI/NumberText.cs" id="4_w4hnn"]
+[ext_resource type="Script" uid="uid://b3xdja7g8c113" path="res://scripts/UI/ButtonAnimation.cs" id="5_vbwnq"]
+[ext_resource type="Texture2D" uid="uid://be2e40vi72lr4" path="res://art/button/button0/button_1.png" id="6_rvk4s"]
+[ext_resource type="Texture2D" uid="uid://cg87epxehtstv" path="res://art/button/button1/button_2.png" id="7_g8j7g"]
+[ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button1/button_3.png" id="8_4qg6a"]
+[ext_resource type="Texture2D" uid="uid://cmrga8qtd1vmx" path="res://art/button/button1/button_4.png" id="9_ck24j"]
+[ext_resource type="Texture2D" uid="uid://c6xnutvvwmij3" path="res://art/button/button1/button_5.png" id="10_lamp3"]
+[ext_resource type="Texture2D" uid="uid://dc2pwplxdgv7h" path="res://art/shop/shop0/shop0.png" id="11_xjfo4"]
+[ext_resource type="PackedScene" uid="uid://bsiict2uqfmla" path="res://scenes/UI/shop_button.tscn" id="12_wk6eg"]
+[ext_resource type="PackedScene" uid="uid://b0v7gw7hxdwhl" path="res://scenes/Upgrades/Pond/pond_0.tscn" id="13_4uo4n"]
+[ext_resource type="PackedScene" uid="uid://de37clg44ushq" path="res://scenes/Upgrades/Pond/fish_0.tscn" id="14_ahvx3"]
+[ext_resource type="Texture2D" uid="uid://765l7v0c24up" path="res://art/settings/settings0/settings0.png" id="15_36sti"]
 
 [sub_resource type="Gradient" id="Gradient_ltarh"]
 offsets = PackedFloat32Array(1)
@@ -40,7 +40,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_lmo2c")]
+"values": [ExtResource("6_rvk4s")]
 }
 
 [sub_resource type="Animation" id="Animation_cetho"]
@@ -56,7 +56,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("2_lmo2c"), ExtResource("4_cetho"), ExtResource("5_1fmla"), ExtResource("6_hge6c"), ExtResource("7_q2y38")]
+"values": [ExtResource("6_rvk4s"), ExtResource("7_g8j7g"), ExtResource("8_4qg6a"), ExtResource("9_ck24j"), ExtResource("10_lamp3")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1fmla"]
@@ -66,11 +66,11 @@ _data = {
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l076w"]
-atlas = ExtResource("12_l5qq7")
+atlas = ExtResource("11_xjfo4")
 region = Rect2(1490.6847, 0, 429.3153, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d7v6i"]
-atlas = ExtResource("20_16u76")
+atlas = ExtResource("15_36sti")
 region = Rect2(1280.8383, 23.722391, 146.19873, 126.44216)
 
 [node name="Control" type="Control" unique_id=115132332]
@@ -82,7 +82,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 mouse_filter = 2
-script = ExtResource("1_i7dbw")
+script = ExtResource("1_7338a")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1018359846]
 layout_mode = 1
@@ -94,13 +94,13 @@ grow_vertical = 2
 texture = SubResource("GradientTexture1D_a64mt")
 metadata/_edit_lock_ = true
 
-[node name="tree0" parent="." unique_id=1461711897 instance=ExtResource("16_074bi")]
+[node name="tree0" parent="." unique_id=1461711897 instance=ExtResource("2_nk42b")]
 layout_mode = 0
 offset_left = 788.0
 offset_top = 368.0
 offset_right = 1130.0
 offset_bottom = 843.0
-Apple0 = ExtResource("17_iu01i")
+Apple0 = ExtResource("3_74su8")
 
 [node name="Number" type="Label" parent="." unique_id=384437704]
 layout_mode = 1
@@ -114,18 +114,17 @@ grow_vertical = 2
 text = "0"
 label_settings = SubResource("LabelSettings_i7dbw")
 horizontal_alignment = 1
-script = ExtResource("2_a64mt")
+script = ExtResource("4_w4hnn")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="MainButton" type="Button" parent="." unique_id=1962091946]
-visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.41770834
-anchor_top = 0.6481481
-anchor_right = 0.5842014
-anchor_bottom = 0.7851852
+anchor_left = 0.12447917
+anchor_top = 0.14907408
+anchor_right = 0.2909722
+anchor_bottom = 0.28611124
 offset_right = 3.333374
 offset_bottom = 4.999939
 grow_horizontal = 2
@@ -133,9 +132,8 @@ grow_vertical = 0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_default_cursor_shape = 2
 flat = true
-script = ExtResource("2_ex8ew")
+script = ExtResource("5_vbwnq")
 metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
 
 [node name="ButtonImg" type="TextureRect" parent="MainButton" unique_id=1230415507]
 texture_filter = 3
@@ -152,7 +150,7 @@ offset_bottom = 254.49997
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_lmo2c")
+texture = ExtResource("6_rvk4s")
 metadata/_edit_lock_ = true
 
 [node name="ButtonAnim" type="AnimationPlayer" parent="MainButton/ButtonImg" unique_id=1255175062]
@@ -197,23 +195,24 @@ grow_vertical = 2
 theme_override_constants/separation = 12
 metadata/_edit_use_anchors_ = true
 
-[node name="TreeShopButton" parent="Shop/ShopButtons" unique_id=523727664 instance=ExtResource("12_l076w")]
+[node name="TreeShopButton" parent="Shop/ShopButtons" unique_id=523727664 instance=ExtResource("12_wk6eg")]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-ButtonId = "tree"
-spawnable = ExtResource("16_074bi")
+ButtonID = "tree"
+spawnable = ExtResource("2_nk42b")
 
-[node name="PondShopButton" parent="Shop/ShopButtons" unique_id=1331519468 instance=ExtResource("12_l076w")]
+[node name="PondShopButton" parent="Shop/ShopButtons" unique_id=1331519468 instance=ExtResource("12_wk6eg")]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-ButtonId = "pond"
-spawnable = ExtResource("14_d7v6i")
+ButtonID = "pond"
+spawnable = ExtResource("13_4uo4n")
+InitialCost = 30
 
-[node name="ShopButton" parent="Shop/ShopButtons" unique_id=880363109 instance=ExtResource("12_l076w")]
+[node name="CloudShopButton" parent="Shop/ShopButtons" unique_id=880363109 instance=ExtResource("12_wk6eg")]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-ButtonId = "cloud"
-spawnable = ExtResource("14_a64mt")
+ButtonID = "cloud"
+spawnable = ExtResource("14_ahvx3")
 InitialCost = 50
 
 [node name="Settings" type="Button" parent="." unique_id=1146152856]

@@ -17,7 +17,7 @@ public partial class ButtonManager : Control
 
 		_mainbutton = GetNode<Button>("MainButton");
 		_mainbutton.Pressed += OnMainPressed;
-		addamt = 1;
+		addamt = 500;
 
 	}
 

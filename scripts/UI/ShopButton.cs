@@ -3,7 +3,7 @@ using System;
 using Godot.Collections;
 public partial class ShopButton : Button
 {	
-	[Export] public string ButtonId { get; set; }
+	[Export] public string ButtonID { get; set; }
 	[Export] public PackedScene spawnable;
 	[Export] public int InitialCost {get; set;}
 
@@ -16,9 +16,10 @@ public partial class ShopButton : Button
 		cost_text = GetNode<Label>("Cost");
 		level_text = GetNode<Label>("Level");
 		lock_img = GetNode<TextureRect>("Lock");
+
 		Pressed += OnPressed;
-		
 		EventBus.Instance.StageUpgrade += OnStageUpgrade;
+		EventBus.Instance.TriggerButtonAdded(this);
 		UpdateUI();
 
 	}
@@ -31,43 +32,50 @@ public partial class ShopButton : Button
 		
 	}
 
+	private void InitUI(){
+		if(!Stats.Instance.IsStored(ButtonID)){
+			lock_img.Visible = true;
+			level_text.Text = "";
+			cost_text.Text = InitialCost.ToString();
+		}
+		else {
+			UpdateUI();
+		}
+		
+	}
+
 	private void UpdateUI()
 	{
-		cost_text.Text = Stats.Instance.GetCost(ButtonId).ToString();
-
-		int level = Stats.Instance.GetLevel(ButtonId);
-		
-		if(Stats.Instance.IsCapped(ButtonId)){
-			
-			
+		if(!Stats.Instance.IsStored(ButtonID)){
+			InitUI();
+			return;
 		}
+
+		int level = Stats.Instance.GetLevel(ButtonID);
+		cost_text.Text = Stats.Instance.GetCost(ButtonID).ToString();
+			
+
+		
+		//not unlocked
+		if (level == -1)
+		{
+			level_text.Text = "";
+			lock_img.Visible = true;
+		}
+
+		//level up
 		else
 		{
-			//not unlocked
-			if (level == -1)
+			if (level == 0)
 			{
 				level_text.Text = "";
-				lock_img.Visible = true;
 			}
-
-			//level up
 			else
 			{
-				if (level == 0)
-				{
-					level_text.Text = "";
-				}
-				else
-				{
-					level_text.Text = level.ToString();
-				}
-				lock_img.Visible = false;
+				level_text.Text = level.ToString();
 			}
-
+			lock_img.Visible = false;
 		}
-		
-		
-
 		
 	}
 	

@@ -10,6 +10,9 @@ public partial class EventBus : Node
     public delegate void ButtonUpgradeEventHandler(ShopButton button);
 	[Signal]
     public delegate void StageUpgradeEventHandler();
+	[Signal]
+	public delegate void ButtonAddedEventHandler(String ButtonID);
+
 	public override void _EnterTree()
     {
         if (Instance == null)
@@ -31,6 +34,10 @@ public partial class EventBus : Node
 
 	public void TriggerStageUpgrade(){
 		EmitSignal(SignalName.StageUpgrade);
+	}
+
+	public void TriggerButtonAdded(ShopButton button){
+		EmitSignal(SignalName.ButtonAdded,button);
 	}
 	
 	

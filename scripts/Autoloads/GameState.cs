@@ -19,6 +19,11 @@ public partial class GameState : Node
 		new Array<Vector2> {Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero}
 	};
 
+
+	public Array<int> PaintingStages = new Array<int>{
+		0
+	};
+
 	private int number = 0;
 
 	// Called when the node enters the scene tree for the first time.

@@ -7,51 +7,21 @@ using System.Collections.Generic;
 public partial class UpgradeManager : Node
 {	
 	public static UpgradeManager Instance { get; private set; }
-	public PaintingState CurrentPainting;
-	private List<ShopButton> ShopButtonList = new List<ShopButton>{};
+ 	private List<ShopButton> ShopButtonList = new List<ShopButton>{};
+	public int level;
 	
 	//index of list is which painting; Dictionary's contain ButtonID->Index conversions
 	public Dictionary<string,int> ShopButtonIDX  = new Dictionary<string,int>
 	{
-		 { "tree", 0 }, { "pond", 1 }, { "cloud", 2 },
+		{ "tree", 0 }, { "pond", 1 }, { "cloud", 2 },
 	}; 
 	
 	
 	[Signal]
 	public delegate void ButtonAddedEventHandler(ShopButton button);
-	[Signal]
-	public delegate void PaintingAddedEventHandler(PaintingState button);
-	
-	
-	public struct StageObj
-	{
-		public int stage;
-		public int LevelCap;
-		public StageObj()
-		{
-			stage = 0;
-			LevelCap = 5;
-		}
-		public StageObj(int new_stage,int level_cap)
-		{
-			stage = new_stage;
-			LevelCap = level_cap;
-		}
 
-		public void UpgradeStage()
-		{
-			
-			stage++;
-			LevelCap = LevelCap +  5;
-			if(Instance.CurrentPainting!=null){
-				Instance.CurrentPainting.stage= stage;
-				Instance.CurrentPainting.levelcap = LevelCap;
-			}
-		}
 		
-	}
-		
-	public StageObj UIState = new StageObj(0,5);
+	public Constants.StageObj UIState = new Constants.StageObj(0,5);
 	
 
 	 
@@ -59,21 +29,12 @@ public partial class UpgradeManager : Node
 	{
 		Instance = this;
 		ButtonAdded+= OnButtonAdded;
-		PaintingAdded += OnPaintingAdded;
+		
 		EventBus.Instance.StageUpgrade += OnStageUpgrade;
 		EventBus.Instance.GameLoaded +=  OnGameLoaded;
 	}
 	public void OnGameLoaded(){
 		
-		if(CurrentPainting!=null){
-			int level = CurrentPainting.level;
-			
-			CurrentPainting.stage = UIState.stage;
-			CurrentPainting.levelcap = UIState.LevelCap;
-			CurrentPainting.ItemCapped= GameState.Instance.ItemCapped[level];
-			CurrentPainting.ItemLevels=GameState.Instance.ItemLevels[level];
-			CurrentPainting.ItemCosts=GameState.Instance.ItemCosts[level];
-		}
 		foreach(ShopButton button in ShopButtonList){
 			UpdateButtonUI(button);
 		}
@@ -85,19 +46,19 @@ public partial class UpgradeManager : Node
 		int idx = ShopButtonIDX[button.ButtonID];
 
 		
-		if (CurrentPainting.ItemLevels[idx] < UIState.LevelCap)
+		if (GameState.Instance.ItemLevels[level][idx] < UIState.LevelCap)
 		{
-			if (CurrentPainting.ItemLevels[idx] == -1)
+			if (GameState.Instance.ItemLevels[level][idx] == -1)
 			{
 				button.FirstBuy();
 			}
-			CurrentPainting.SetItemLevels(idx,CurrentPainting.ItemLevels[idx]+1);
+			GameState.Instance.ItemLevels[level][idx]++;
 			//placeholder cost function
-			CurrentPainting.SetItemCosts(idx,CurrentPainting.ItemCosts[idx]+10);
+			GameState.Instance.ItemCosts[level][idx] =GameState.Instance.ItemCosts[level][idx]+10;
 		}
-		if(CurrentPainting.ItemLevels[idx]==UIState.LevelCap)
+		if(GameState.Instance.ItemLevels[level][idx]==UIState.LevelCap)
 		{	
-			CurrentPainting.SetItemCapped(idx,true);
+			GameState.Instance.ItemCapped[level][idx] =true;
 		}
 
 		UpdateButtonUI(button);
@@ -105,6 +66,15 @@ public partial class UpgradeManager : Node
 	}
 	private void OnStageUpgrade(){
 		UIUpgrade();
+	}
+	private void InitButtonState(ShopButton button)
+	{
+		if (GameState.Instance == null) return;
+		int idx = ShopButtonIDX[button.ButtonID];
+		GameState.Instance.ItemCapped[level][idx] = false;
+		GameState.Instance.ItemLevels[level][idx] = -1;
+		GameState.Instance.ItemCosts[level][idx] = button.InitialCost;
+		UpdateButtonUI(button);
 	}
 	private void OnButtonAdded(ShopButton button)
 	{
@@ -115,21 +85,11 @@ public partial class UpgradeManager : Node
 		if(idx>=UIState.stage+1){
 			button.Visible = false;
 		}
-		
-	}
-
-	private void OnPaintingAdded(PaintingState painting_state){
-		CurrentPainting = painting_state;
-		CurrentPainting.stage = UIState.stage;
-		CurrentPainting.levelcap = UIState.LevelCap;
-		ShopButton button;
-		for(int idx = 0; idx<ShopButtonList.Count; idx++){
-			button = ShopButtonList[idx];
-			CurrentPainting.ItemCapped[idx] = false;
-			CurrentPainting.ItemLevels[idx] = -1;
-			CurrentPainting.ItemCosts[idx] = button.InitialCost;
-			UpdateButtonUI(button);
+		if(GameState.Instance!=null){
+			InitButtonState(button);
 		}
+		
+		
 	}
 
 	public void UpdateNumber(int amt){
@@ -142,9 +102,9 @@ public partial class UpgradeManager : Node
 		
 		if(idx<UIState.stage+1)
 		{
-			if (CurrentPainting.ItemCosts[idx] <= GameState.Instance.GetNumber() && !CurrentPainting.ItemCapped[idx])
+			if (GameState.Instance.ItemCosts[level][idx] <= GameState.Instance.GetNumber() && !GameState.Instance.ItemCapped[level][idx])
 			{
-				UpdateNumber(-CurrentPainting.ItemCosts[idx]);
+				UpdateNumber(-GameState.Instance.ItemCosts[level][idx]);
 				UpgradeButton(button);
 			}
 		}
@@ -162,14 +122,17 @@ public partial class UpgradeManager : Node
 
 		for(int idx = 0; idx<UIState.stage+1; idx++)
 		{
-			CurrentPainting.ItemCapped[idx]=false;
+			GameState.Instance.ItemCapped[level][idx] =false;
 		}
 		UIState.UpgradeStage();
 
 		foreach(ShopButton button in ShopButtonList){
 			UpdateButtonUI(button);
 		}
-
+		
+		GameState.Instance.UIStates[level]= UIState;
+		
+	
 
 	}
 
@@ -178,15 +141,15 @@ public partial class UpgradeManager : Node
 		if(idx<UIState.stage+1){
 			button.Visible = true;
 		}
-		button.UpdateUI(CurrentPainting.ItemLevels[idx],CurrentPainting.ItemCosts[idx],CurrentPainting.ItemCapped[idx]);
+		button.UpdateUI(GameState.Instance.ItemLevels[level][idx],GameState.Instance.ItemCosts[level][idx],GameState.Instance.ItemCapped[level][idx]);
 	}
 
 	public bool IsAllCapped()
 	{
 		for(int idx = 0; idx<UIState.stage+1; idx++)
 		{
-			GD.Print(idx+ ": " +CurrentPainting.ItemCapped[idx]);
-			if(!CurrentPainting.ItemCapped[idx]){
+			GD.Print(idx+ ": " +GameState.Instance.ItemCapped[level][idx]);
+			if(!GameState.Instance.ItemCapped[level][idx]){
 				return false;
 			}
 		}
@@ -197,3 +160,41 @@ public partial class UpgradeManager : Node
 		return UIState.stage == 2 && IsAllCapped();
 	}
 }
+
+
+/*
+HAPPY ZONE:
+1231231231203197410417341
+4
+2
+34
+2
+342
+34
+234
+2
+342
+34
+23
+4
+23
+42
+34
+234
+23
+42
+34
+2
+342
+34
+234
+2
+34
+
+23
+42
+
+
+
+
+*/

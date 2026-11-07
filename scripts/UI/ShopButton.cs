@@ -62,10 +62,5 @@ public partial class ShopButton : Button
 		GetTree().CurrentScene.AddChild(spawnedNode);
 		
 	}
-
-	
-
-
-
 	
 }

@@ -13,8 +13,6 @@ public partial class EventBus : Node
 	[Signal]
 	public delegate void First3DTransitionEventHandler();	
 
-	[Signal]
-	public delegate void PaintingEnteredEventHandler();	
 
 	[Signal]
 	public delegate void NumberChangedEventHandler(int newnum);
@@ -41,11 +39,9 @@ public partial class EventBus : Node
             QueueFree(); // Prevent duplicate instances
         }
     }
-	// public override void _Ready()
-	// {
-	// 	Instance = this;
-	// }
 
+
+	//SAVE/LOAD
 	public void TriggerSaveGame(int slot = 0){
 		EmitSignal(SignalName.SaveGame,slot);
 	}
@@ -55,16 +51,16 @@ public partial class EventBus : Node
 	public void TriggerGameLoaded(){
 		EmitSignal(SignalName.GameLoaded);
 	}
+
+	//TRANSITIONS
 	public void TriggerStageUpgrade(){
 		EmitSignal(SignalName.StageUpgrade);
-	}
-
-	public void TriggerPaintingEntered(){
-		EmitSignal(SignalName.PaintingEntered);
 	}
 	public void TriggerFirst3DTransition(){
 		EmitSignal(SignalName.First3DTransition);
 	}
+
+	//INFORMATION CHANGED
 	public void TriggerNumberChanged(int number){
 		EmitSignal(SignalName.NumberChanged,number);
 	}

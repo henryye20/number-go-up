@@ -9,7 +9,6 @@ public partial class SaveButton : Button
 	}
 
 	public void OnPressed(){
-		GD.Print("SaveButton: pressed");
 		EventBus.Instance.TriggerSaveGame();
 
 	}

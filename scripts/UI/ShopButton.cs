@@ -18,46 +18,28 @@ public partial class ShopButton : Button
 		lock_img = GetNode<TextureRect>("Lock");
 
 		Pressed += OnPressed;
-		EventBus.Instance.StageUpgrade += OnStageUpgrade;
-		EventBus.Instance.TriggerButtonAdded(this);
-		UpdateUI();
+		UpgradeManager.Instance.EmitSignal(UpgradeManager.SignalName.ButtonAdded,this);
+	
 
 	}
 	private void OnPressed(){
 		
-		if(Stats.Instance.TryBuy(this)){
-			EventBus.Instance.TriggerButtonUpgrade(this);
-			UpdateUI();
-		}
+		UpgradeManager.Instance.TryBuy(this);
 		
 	}
 
-	private void InitUI(){
-		if(!Stats.Instance.IsStored(ButtonID)){
-			lock_img.Visible = true;
-			level_text.Text = "";
-			cost_text.Text = InitialCost.ToString();
-		}
-		else {
-			UpdateUI();
-		}
-		
-	}
 
-	private void UpdateUI()
+	public void UpdateUI(int level, int cost, bool capped)
 	{
-		if(!Stats.Instance.IsStored(ButtonID)){
-			InitUI();
-			return;
+		GD.Print(ButtonID.ToString() +" is being updated");
+		cost_text.Text = cost.ToString();
+
+		if(capped){
+			level_text.Text = "MAX";
+			cost_text.Text = "";
 		}
-
-		int level = Stats.Instance.GetLevel(ButtonID);
-		cost_text.Text = Stats.Instance.GetCost(ButtonID).ToString();
-			
-
-		
 		//not unlocked
-		if (level == -1)
+		else if (level == -1)
 		{
 			level_text.Text = "";
 			lock_img.Visible = true;
@@ -66,20 +48,14 @@ public partial class ShopButton : Button
 		//level up
 		else
 		{
-			if (level == 0)
-			{
-				level_text.Text = "";
-			}
-			else
-			{
-				level_text.Text = level.ToString();
-			}
+			if (level == 0) {level_text.Text = "";}
+			else {level_text.Text = level.ToString();}
 			lock_img.Visible = false;
 		}
 		
 	}
 	
-	//called in Stats OnButtonUpgrade
+	//called in UpgradeManager OnButtonUpgrade
 	public void FirstBuy()
 	{
 		Node spawnedNode = spawnable.Instantiate();
@@ -87,11 +63,7 @@ public partial class ShopButton : Button
 		
 	}
 
-	public void OnStageUpgrade()
-	{
-		UpdateUI();
-
-	}
+	
 
 
 

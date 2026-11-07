@@ -24,7 +24,7 @@ public partial class Apple0 : TextureRect
 			
 			CreateNumber();
 			
-			Stats.Instance.UpdateNumber(amt);
+			UpgradeManager.Instance.UpdateNumber(amt);
 			AcceptEvent();
 			QueueFree();
 		}
@@ -34,7 +34,7 @@ public partial class Apple0 : TextureRect
 		int expire_amt = (int)(amt*expire_loss_ratio);
 
 		CreateNumber();
-		Stats.Instance.UpdateNumber(expire_amt);
+		UpgradeManager.Instance.UpdateNumber(expire_amt);
 
 		QueueFree();
 	}

@@ -13,7 +13,7 @@ public partial class Tree0 : TextureRect
 
 	private List<Marker2D> marker_list = new();
 	Control Markers;
-
+	
 	public override void _Ready()
 	{
 
@@ -34,6 +34,7 @@ public partial class Tree0 : TextureRect
 
 	public override void _GuiInput(InputEvent @event)
 	{
+		
 		if (@event.IsActionPressed("select") && IsOpaque(GetLocalMousePosition()))
 		{
 			_isDragging = true;
@@ -43,10 +44,14 @@ public partial class Tree0 : TextureRect
 		else if (@event.IsActionReleased("select"))
 		{
 			_isDragging = false;
+			int idx = UpgradeManager.Instance.ShopButtonIDX["tree"];
+			EventBus.Instance.TriggerUpgradePosChanged(idx,GlobalPosition);
+
 		}
 		else if (@event is InputEventMouseMotion && _isDragging)
 		{
 			GlobalPosition = GetGlobalMousePosition() - _offset;
+			
 			AcceptEvent();
 		}
 	}

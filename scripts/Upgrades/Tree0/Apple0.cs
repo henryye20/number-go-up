@@ -22,7 +22,7 @@ public partial class Apple0 : TextureRect
 		if (@event.IsActionPressed("select"))
 		{
 			
-			CreateNumber();
+			CreateNumber(amt);
 			
 			UpgradeManager.Instance.UpdateNumber(amt);
 			AcceptEvent();
@@ -33,18 +33,18 @@ public partial class Apple0 : TextureRect
 	{
 		int expire_amt = (int)(amt*expire_loss_ratio);
 
-		CreateNumber();
+		CreateNumber(expire_amt);
 		UpgradeManager.Instance.UpdateNumber(expire_amt);
 
 		QueueFree();
 	}
 	
-	private void CreateNumber()
+	private void CreateNumber(int _amt)
 	{
 		var _NumberPlus = NumberPlusScene.Instantiate<NumberPlus>();
 		
 		GetTree().CurrentScene.AddChild(_NumberPlus);
-		_NumberPlus.data(amt);
+		_NumberPlus.data(_amt);
 		_NumberPlus.GlobalPosition = GlobalPosition + (Size / 2) - (_NumberPlus.Size / 2);;
 		_NumberPlus.Run();
 	}

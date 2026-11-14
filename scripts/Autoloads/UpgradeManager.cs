@@ -8,20 +8,23 @@ public partial class UpgradeManager : Node
 {	
 	public static UpgradeManager Instance { get; private set; }
  	private List<ShopButton> ShopButtonList = new List<ShopButton>{};
-	public int level;
-	
 	//index of list is which painting; Dictionary's contain ButtonID->Index conversions
 	public Dictionary<string,int> ShopButtonIDX  = new Dictionary<string,int>
 	{
 		{ "tree", 0 }, { "pond", 1 }, { "cloud", 2 },
 	}; 
+
+	//Current level's stage and levelcap
+	public int level=0;
+	public int stage=0;
+	public int level_cap=5;
 	
 	
 	[Signal]
 	public delegate void ButtonAddedEventHandler(ShopButton button);
 
 		
-	public Constants.StageObj UIState = new Constants.StageObj(0,5);
+	
 	
 
 	 
@@ -32,12 +35,16 @@ public partial class UpgradeManager : Node
 		
 		EventBus.Instance.StageUpgrade += OnStageUpgrade;
 		EventBus.Instance.GameLoaded +=  OnGameLoaded;
+		
 	}
 	public void OnGameLoaded(){
-		
+		stage = GameState.Instance.PaintingStages[level];
+		level_cap = GameState.Instance.PaintingLevelCaps[level];
 		foreach(ShopButton button in ShopButtonList){
 			UpdateButtonUI(button);
 		}
+		
+		
 		GD.Print("UpgradeManager: Current painting and Buttons updated to LOAD UI");
 	}
 	private void UpgradeButton(ShopButton button)
@@ -46,7 +53,7 @@ public partial class UpgradeManager : Node
 		int idx = ShopButtonIDX[button.ButtonID];
 
 		
-		if (GameState.Instance.ItemLevels[level][idx] < UIState.LevelCap)
+		if (GameState.Instance.ItemLevels[level][idx] < level_cap)
 		{
 			if (GameState.Instance.ItemLevels[level][idx] == -1)
 			{
@@ -56,7 +63,7 @@ public partial class UpgradeManager : Node
 			//placeholder cost function
 			GameState.Instance.ItemCosts[level][idx] =GameState.Instance.ItemCosts[level][idx]+10;
 		}
-		if(GameState.Instance.ItemLevels[level][idx]==UIState.LevelCap)
+		if(GameState.Instance.ItemLevels[level][idx]==level_cap)
 		{	
 			GameState.Instance.ItemCapped[level][idx] =true;
 		}
@@ -82,7 +89,7 @@ public partial class UpgradeManager : Node
 		
 		ShopButtonList.Add(button);
 
-		if(idx>=UIState.stage+1){
+		if(idx>=stage+1){
 			button.Visible = false;
 		}
 		if(GameState.Instance!=null){
@@ -100,7 +107,7 @@ public partial class UpgradeManager : Node
 	{
 		int idx = ShopButtonIDX[button.ButtonID];
 		
-		if(idx<UIState.stage+1)
+		if(idx<stage+1)
 		{
 			if (GameState.Instance.ItemCosts[level][idx] <= GameState.Instance.GetNumber() && !GameState.Instance.ItemCapped[level][idx])
 			{
@@ -118,35 +125,38 @@ public partial class UpgradeManager : Node
 	{
 
 		// change shop texture to new texture
-		GD.Print($"UI upgraded to {UIState.stage}" );
+		GD.Print($"UI upgraded to {stage}" );
 
-		for(int idx = 0; idx<UIState.stage+1; idx++)
+		for(int idx = 0; idx<stage+1; idx++)
 		{
 			GameState.Instance.ItemCapped[level][idx] =false;
 		}
-		UIState.UpgradeStage();
-
+		stage++;
+		level_cap+=5;
+		GameState.Instance.PaintingStages[level]= stage;
+		GameState.Instance.PaintingLevelCaps[level] = level_cap;
 		foreach(ShopButton button in ShopButtonList){
 			UpdateButtonUI(button);
 		}
 		
-		GameState.Instance.UIStates[level]= UIState;
 		
-	
-
 	}
 
 	private void UpdateButtonUI(ShopButton button){
 		int idx = ShopButtonIDX[button.ButtonID];
-		if(idx<UIState.stage+1){
+		if(idx<=stage){
 			button.Visible = true;
+		}
+		else
+		{
+			button.Visible = false;
 		}
 		button.UpdateUI(GameState.Instance.ItemLevels[level][idx],GameState.Instance.ItemCosts[level][idx],GameState.Instance.ItemCapped[level][idx]);
 	}
 
 	public bool IsAllCapped()
 	{
-		for(int idx = 0; idx<UIState.stage+1; idx++)
+		for(int idx = 0; idx<stage+1; idx++)
 		{
 			GD.Print(idx+ ": " +GameState.Instance.ItemCapped[level][idx]);
 			if(!GameState.Instance.ItemCapped[level][idx]){
@@ -156,45 +166,7 @@ public partial class UpgradeManager : Node
 		return true;
 	}
 	public bool IsUIMaxed(){
-		GD.Print("stage: " +UIState.stage);
-		return UIState.stage == 2 && IsAllCapped();
+		GD.Print("stage: " +stage);
+		return stage == 2 && IsAllCapped();
 	}
 }
-
-
-/*
-HAPPY ZONE:
-1231231231203197410417341
-4
-2
-34
-2
-342
-34
-234
-2
-342
-34
-23
-4
-23
-42
-34
-234
-23
-42
-34
-2
-342
-34
-234
-2
-34
-
-23
-42
-
-
-
-
-*/

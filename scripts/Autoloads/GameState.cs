@@ -23,6 +23,9 @@ public partial class GameState : Node
 	public Array<int> PaintingStages = new Array<int>{
 		0
 	};
+	public Array<int> PaintingLevelCaps = new Array<int>{
+		5
+	};
 
 	private int number = 0;
 
@@ -35,10 +38,14 @@ public partial class GameState : Node
 
 	Godot.Collections.Dictionary DEFAULTS = new Godot.Collections.Dictionary{
 		["number"]=0,
+		["paiting_stages"]= new Array<int>{0},
+		["paiting_levelcaps"]= new Array<int>{5},
 		["upgrade_positions"]=new Array<Array<Vector2>>{new Array<Vector2> {Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero}},
 		["item_capped"] =new Array<Array<bool>>{new Array<bool> { false,false,false,false,false,false }},
 		["item_levels"] =new Array<Array<int>>{new Array<int> {-1,-1,-1,-1,-1,-1}},
 		["item_costs"] =new Array<Array<int>>{new Array<int> {-1,-1,-1,-1,-1,-1}},
+		
+
 	};
 
 	public Godot.Collections.Dictionary ToDict(){
@@ -58,6 +65,8 @@ public partial class GameState : Node
 		}
 		return new Godot.Collections.Dictionary{
 			["number"] =number,
+			["painting_stages"]= PaintingStages,
+			["painting_levelcaps"]= PaintingLevelCaps,
 			["upgrade_positions"]=serializedPositions,
 			["item_capped"]=ItemCapped,
 			["item_levels"]=ItemLevels,
@@ -65,51 +74,53 @@ public partial class GameState : Node
 			
 		};
 	}
-	public void FromDict(Godot.Collections.Dictionary data){
-		
-		if (data.TryGetValue("number", out var numVal))
-			number = numVal.AsInt32();
-		else
-			number = DEFAULTS["number"].AsInt32();
+	private static Array<int> ToIntArray(Variant v)
+	{
+		var result = new Array<int>();
+		foreach (var item in v.AsGodotArray())
+			result.Add(item.AsInt32());
+		return result;
+	}
+
+	private static Array<Array<T>> ToNested<[MustBeVariant]T>(Variant v, Func<Variant, T> conv)
+	{
+		var result = new Array<Array<T>>();
+		foreach (var inner in v.AsGodotArray())
+		{
+			var row = new Array<T>();
+			foreach (var item in inner.AsGodotArray())
+				row.Add(conv(item));
+			result.Add(row);
+		}
+		return result;
+	}
+	public void FromDict(Godot.Collections.Dictionary data)
+	{
+		Variant Get(string key) => data.TryGetValue(key, out var v) ? v : DEFAULTS[key];
+
+		number = Get("number").AsInt32();
 		EventBus.Instance.TriggerNumberChanged(number);
 
-		if (data.TryGetValue("upgrade_positions", out var posVal))
+		PaintingStages   = ToIntArray(Get("painting_stages"));
+		PaintingLevelCaps = ToIntArray(Get("painting_levelcaps"));
+
+		UpgradePositions = new Array<Array<Vector2>>();
+		foreach (var inner in Get("upgrade_positions").AsGodotArray())
 		{
-			var rawPositions = posVal.As<Array<Array<Godot.Collections.Dictionary>>>();
-			UpgradePositions = new Array<Array<Vector2>>();
-			
-			foreach (var innerArray in rawPositions)
+			var row = new Array<Vector2>();
+			foreach (var item in inner.AsGodotArray())
 			{
-				var newInnerArray = new Array<Vector2>();
-				foreach (var vecDict in innerArray)
-				{
-					float x = vecDict.TryGetValue("x", out var xVal) ? xVal.AsSingle() : 0f;
-					float y = vecDict.TryGetValue("y", out var yVal) ? yVal.AsSingle() : 0f;
-					newInnerArray.Add(new Vector2(x, y));
-				}
-				UpgradePositions.Add(newInnerArray);
+				var d = item.AsGodotDictionary();
+				row.Add(new Vector2(
+					d.TryGetValue("x", out var x) ? x.AsSingle() : 0f,
+					d.TryGetValue("y", out var y) ? y.AsSingle() : 0f));
 			}
-		}
-		else
-		{
-			UpgradePositions = DEFAULTS["upgrade_positions"].As<Array<Array<Vector2>>>();
+			UpgradePositions.Add(row);
 		}
 
-		if (data.TryGetValue("item_capped", out var cappedVal))
-			ItemCapped = cappedVal.As<Array<Array<bool>>>();
-		else
-			ItemCapped = DEFAULTS["item_capped"].As<Array<Array<bool>>>();
-
-		if (data.TryGetValue("item_levels", out var levelsVal))
-			ItemLevels = levelsVal.As<Array<Array<int>>>();
-		else
-			ItemLevels = DEFAULTS["item_levels"].As<Array<Array<int>>>();
-
-		if (data.TryGetValue("item_costs", out var costsVal))
-			ItemCosts = costsVal.As<Array<Array<int>>>();
-		else
-			ItemCosts = DEFAULTS["item_costs"].As<Array<Array<int>>>();
-				
+		ItemCapped = ToNested(Get("item_capped"), v => v.AsBool());
+		ItemLevels = ToNested(Get("item_levels"), v => v.AsInt32());
+		ItemCosts  = ToNested(Get("item_costs"),  v => v.AsInt32());
 	}
 	public void ChangeNumber(int amt){
 		

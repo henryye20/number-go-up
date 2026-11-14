@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://br8rghinapqni"]
 
+[ext_resource type="Script" uid="uid://bsu87pknei6to" path="res://scripts/UI/ButtonManager.cs" id="1_74su8"]
 [ext_resource type="PackedScene" uid="uid://b4rlyhro6mqol" path="res://scenes/Upgrades/Tree/Tree0/tree_0.tscn" id="2_nk42b"]
 [ext_resource type="Script" uid="uid://d2nuc2uglch27" path="res://scripts/UI/NumberText.cs" id="4_w4hnn"]
-[ext_resource type="Script" uid="uid://b3xdja7g8c113" path="res://scripts/UI/ButtonAnimation.cs" id="5_vbwnq"]
 [ext_resource type="Texture2D" uid="uid://be2e40vi72lr4" path="res://art/button/button0/button_1.png" id="6_rvk4s"]
 [ext_resource type="Texture2D" uid="uid://cg87epxehtstv" path="res://art/button/button1/button_2.png" id="7_g8j7g"]
 [ext_resource type="Texture2D" uid="uid://drgdtbts1fpmq" path="res://art/button/button1/button_3.png" id="8_4qg6a"]
@@ -79,10 +79,13 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 mouse_filter = 2
+script = ExtResource("1_74su8")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1018359846]
 layout_mode = 1
@@ -124,7 +127,6 @@ grow_vertical = 0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_default_cursor_shape = 2
 flat = true
-script = ExtResource("5_vbwnq")
 metadata/_edit_use_anchors_ = true
 
 [node name="ButtonImg" type="TextureRect" parent="MainButton" unique_id=1230415507]

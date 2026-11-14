@@ -23,7 +23,7 @@ public partial class ButtonManager : Control
 
 	private void OnMainPressed()
 	{
-		UpgradeManager.Instance.UpdateNumber(addamt);
+		GameState.Instance.ChangeNumber(addamt);
 		
 	}
 	

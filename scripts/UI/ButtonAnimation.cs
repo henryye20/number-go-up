@@ -1,4 +1,4 @@
-using Godot;
+/*using Godot;
 using System;
 
 public partial class ButtonAnimation : Button
@@ -113,3 +113,5 @@ public partial class ButtonAnimation : Button
 		return;
 	}
 }
+
+*/
